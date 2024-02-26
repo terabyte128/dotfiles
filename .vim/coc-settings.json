@@ -1,0 +1,56 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "typescriptreact",
+    "go",
+    "html",
+    "css",
+    "json",
+    "javascript",
+    "c",
+    "cpp"
+  ],
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {}
+    },
+    "ccls": {
+      "command": "ccls-clang-11",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json"],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        },
+        "client": {
+          "snippetSupport": true
+        }
+      }
+    }
+  },
+  "yaml.schemas": {
+    "kubernetes": "/*.yaml"
+  },
+  "yaml.validate": false,
+  "yaml.schemaStore.enable": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "80"],
+  "python.linting.flake8Enabled": true,
+  "python.formatting.blackPath": "~/black-env/.venv/bin/black",
+  "python.sortImports.path": "~/.local/bin/isort",
+  "python.pythonPath": "python3.10",
+  "coc.preferences.jumpCommand": "tabe",
+  "clangd.disableCompletion": true,
+  "clangd.disableDiagnostics": true,
+  "clangd.disableSnippetCompletion": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["services.json"],
+      "url": "./service-definitions/schema.json"
+    }
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative"
+}
