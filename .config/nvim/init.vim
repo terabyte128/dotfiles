@@ -93,7 +93,7 @@ set fdm=indent
 set foldlevelstart=20
 
 " COC config
-source $HOME/.vim/coc-config.vim
+source $HOME/.config/nvim/coc-config.vim
 
 " hecc tabs
 set tabstop=4
