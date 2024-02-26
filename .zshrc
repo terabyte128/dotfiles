@@ -351,12 +351,12 @@ command_exists pio && eval "$(_PIO_COMPLETE=zsh_source pio)"
 # End: PlatformIO Core completion support
 
 # fuzzy find
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
 if [[ -d "$HOME/.config/fzf-zsh-plugin/bin" ]]; then
     export PATH="$PATH:$HOME/.config/fzf-zsh-plugin/bin"
     source "$HOME/.config/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh"
 fi
+
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 [[ -S ~/.1password/agent.sock ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 
@@ -432,7 +432,10 @@ if [[ -d $HOME/go/bin ]]; then
     export PATH="$PATH:$HOME/go/bin"
 fi
 
-export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+LINUX_CERT_PATH="/etc/ssl/certs/ca-certificates.crt"
+
+[[ -f "$LINUX_CERT_PATH" ]] && export REQUESTS_CA_BUNDLE="$LINUX_CERT_PATH"
+
 [[ -d "HOME/.cargo" ]] && . "$HOME/.cargo/env"
 
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
