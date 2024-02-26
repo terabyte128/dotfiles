@@ -1,0 +1,26 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Sam Wolfson
+{% if yadm.hostname == "pomegranate" %}
+	email = samwolfson@extrahop.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6S1WwnePds5ECUSGmD+SQ0ezmQujtpN4BdXLxGxOuW
+{% else %}
+    email = terabyte128@gmail.com
+{% endif %}
+
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+
+[alias]
+	rev = "!f(){ BRANCH=\"$(git rev-parse --abbrev-ref HEAD)\"; git push -u origin \"$BRANCH\":user/$USER/\"$BRANCH\" --force; }; f"
+	exec = "!exec "
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[commit]
+	gpgsign = true

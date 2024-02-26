@@ -1,7 +1,0 @@
-[user]
-	email = terabyte128@gmail.com
-	name = Sam Wolfson
-[safe]
-	directory = /work
-[pull]
-	rebase = true
