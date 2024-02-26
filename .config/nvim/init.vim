@@ -42,6 +42,7 @@ Plugin 'alvan/vim-closetag'
 Plugin 'google/vim-jsonnet'
 Plugin 'normen/vim-pio'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'iamcco/markdown-preview.nvim'
 "Plugin 'sirver/ultisnips'
 
 " All of your Plugins must be added before the following line
@@ -155,7 +156,7 @@ map <esc> :noh <CR>
 " sort imports with leader-s-i
 map <leader>si :CocCommand python.sortImports<CR>
 
-autocmd FileType gitcommit setlocal spell
+autocmd FileType gitcommit,markdown setlocal spell
 
 " snippets
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/snippets']
@@ -221,3 +222,9 @@ autocmd FileType cpp :set shiftwidth=2
 command Upload :w | !pio run --target upload
 nmap <leader>o o<Esc>k
 nmap <leader>O O<Esc>j
+
+let g:mkdp_port = 12345
+function OpenMarkdownPreview (url)
+    echo a:url
+endfunction
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'

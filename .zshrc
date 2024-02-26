@@ -17,7 +17,7 @@ setopt PROMPT_SUBST
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-export IS_DEV_CONTAINER=${IS_DEV_CONTAINER:-false}
+export IS_DEV_CONTAINER=${IS_DEVCONTAINER:-false}
 
 function iswork() {
     if [[ "$HOST" = "pomegranate" ]] || [[ "$IS_DEV_CONTAINER" = "true" ]]; then
@@ -132,8 +132,8 @@ fpath=( ~/.zsh/completion "${fpath[@]}" )
 [ -d /opt/local/share/zsh/site-functions ] && fpath=(/opt/local/share/zsh/site-functions $fpath)
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=1000000
+SAVEHIST=1000000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
@@ -163,7 +163,10 @@ PATH=$HOME/.local/bin:$PATH
 
 if iswork; then
     export TELEPORT_BIND_ADDR=localhost:12345
-    export OZDIR=$HOME/src/oz
+
+    if [[ -z "$OZDIR" ]]; then
+        export OZDIR=$HOME/src/oz
+    fi
 
     PATH=$PATH:$OZDIR/go/bin
     PATH=$PATH:/usr/local/go/bin
@@ -337,15 +340,18 @@ bindkey '^[^?' backward-kill-word
 bindkey '^[b' backward-word
 bindkey '^[f' forward-word
 
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
+
 # command_exists difft && export GIT_EXTERNAL_DIFF=difft
 
 # Begin: PlatformIO Core completion support
+[[ -d ~/.platformio/penv/bin ]] && PATH=$PATH:$HOME/.platformio/penv/bin
 command_exists pio && eval "$(_PIO_COMPLETE=zsh_source pio)"
 # End: PlatformIO Core completion support
 
-
 # fuzzy find
-# [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 if [[ -d "$HOME/.config/fzf-zsh-plugin/bin" ]]; then
     export PATH="$PATH:$HOME/.config/fzf-zsh-plugin/bin"
@@ -362,24 +368,12 @@ export FIRST_NAME=Sam
 export LAST_NAME=Wolfson
 
 function devcontainer() {
-    ports=""
-    cmd="docker run --rm -it --volume $HOME:$HOME --network oz-infrastructure "
-    for arg in "$@"; do
-        cmd+="-p $arg:$arg "
-    done
-
-    cmd+="oz-dev-nvim /setup.sh $PWD"
-    print "$cmd"
-
-    eval "$cmd"
-}
-
-function devcontainer-host() {
-    cmd="docker run --rm --net host -it --volume $HOME:$HOME "
-    cmd+="oz-dev-nvim /setup.sh $PWD"
-    print "$cmd"
-
-    eval "$cmd"
+    cutchars=$((${#OZDIR}+2))
+    ozpath=$(tail -c +"${cutchars}" <<< "${PWD}")
+    docker compose \
+        -f $OZDIR/.devcontainer/docker-compose.yaml \
+        -f $OZDIR/.devcontainer/docker-compose.override.yaml \
+        run --rm --workdir "/workspaces/oz/${ozpath}" devcontainer
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
@@ -438,18 +432,9 @@ if [[ -d $HOME/go/bin ]]; then
     export PATH="$PATH:$HOME/go/bin"
 fi
 
-if [[ -d /opt/homebrew ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+[[ -d "HOME/.cargo" ]] && . "$HOME/.cargo/env"
+
+if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
+  tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 fi
-
-# Setting the LG_WEBOS_TV_SDK_HOME variable to the parent directory of CLI
-export LG_WEBOS_TV_SDK_HOME="$HOME/.local/webos-sdk"
-
-if [ -d "$LG_WEBOS_TV_SDK_HOME/CLI/bin" ]; then
-  # Setting the WEBOS_CLI_TV variable to the bin directory of CLI
-  export WEBOS_CLI_TV="$LG_WEBOS_TV_SDK_HOME/CLI/bin"
-  # Adding the bin directory of CLI to the PATH variable
-  export PATH="$PATH:$WEBOS_CLI_TV"
-fi
-
-command_exists kitten && alias ssh="kitten ssh"
