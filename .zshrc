@@ -438,3 +438,5 @@ export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
   tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 fi
+
+[[ -d "/opt/homebrew" ]] && export PATH="$PATH:/opt/homebrew/bin"

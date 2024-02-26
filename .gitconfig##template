@@ -9,11 +9,13 @@
     email = terabyte128@gmail.com
 {% endif %}
 
+{% if yadm.hostname == "pomegranate" %}
 [gpg]
   format = ssh
 
 [commit]
   gpgsign = true
+{% endif %}
 
 [alias]
 	rev = "!f(){ BRANCH=\"$(git rev-parse --abbrev-ref HEAD)\"; git push -u origin \"$BRANCH\":user/$USER/\"$BRANCH\" --force; }; f"
@@ -22,5 +24,3 @@
 	defaultBranch = main
 [pull]
 	rebase = true
-[commit]
-	gpgsign = true
