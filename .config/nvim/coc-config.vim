@@ -10,7 +10,8 @@ let g:coc_global_extensions = [
     \ 'coc-sh',
     \ 'coc-clangd',
     \ 'coc-tsserver',
-    \ 'coc-yaml'
+    \ 'coc-yaml',
+    \ 'coc-rust-analyzer'
 \]
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some

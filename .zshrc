@@ -354,6 +354,8 @@ command_exists pio && eval "$(_PIO_COMPLETE=zsh_source pio)"
 if [[ -d "$HOME/.config/fzf-zsh-plugin/bin" ]]; then
     export PATH="$PATH:$HOME/.config/fzf-zsh-plugin/bin"
     source "$HOME/.config/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh"
+elif [[ -f ~/.fzf.zsh ]]; then
+    source ~/.fzf.zsh
 fi
 
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
