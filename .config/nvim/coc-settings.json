@@ -1,15 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "typescript",
-    "typescriptreact",
-    "go",
-    "html",
-    "css",
-    "json",
-    "javascript",
-    "c",
-    "cpp"
-  ],
+  "coc.preferences.formatOnSave": true,
   "languageserver": {
     "terraform": {
       "command": "terraform-ls",
