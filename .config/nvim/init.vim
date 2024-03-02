@@ -133,8 +133,6 @@ endfunction
 autocmd filetype tf,terraform autocmd BufWritePre * call FormatTf()
 autocmd FileType tf,terraform let b:coc_root_patterns = ["TENANT", "dev.tf", "stage.tf", "production.tf", "modules", "main.tf", "networking", "versions.tf"]
 
-nmap <C-y> <Plug>(coc-codeaction-cursor)
-
 colorscheme solarized
 set background=light
 set number
