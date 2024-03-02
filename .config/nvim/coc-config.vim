@@ -165,3 +165,9 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" Ctrl+Y to get code actions
+nmap <C-y> <Plug>(coc-codeaction-cursor)
+
+" c+d to open diagnostic pane
+nmap <leader>cd :CocDiagnostics<CR>
