@@ -217,6 +217,7 @@ alias w="watch "
 alias less="less -R"
 alias l="ls"
 alias ll="ls -la"
+alias zz="zellij"
 
 # k8s
 alias k="kubectl"
@@ -440,6 +441,7 @@ LINUX_CERT_PATH="/etc/ssl/certs/ca-certificates.crt"
 
 [[ -d "HOME/.cargo" ]] && . "$HOME/.cargo/env"
 
+# MULTIPLEXER
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
   tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 fi
