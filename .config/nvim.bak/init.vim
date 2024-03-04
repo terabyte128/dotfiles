@@ -41,9 +41,10 @@ Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'alvan/vim-closetag'
 Plugin 'google/vim-jsonnet'
 Plugin 'normen/vim-pio'
-Plugin 'easymotion/vim-easymotion'
+" Plugin 'easymotion/vim-easymotion'
 Plugin 'iamcco/markdown-preview.nvim'
-"Plugin 'sirver/ultisnips'
+Plugin 'windwp/nvim-autopairs'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -226,3 +227,10 @@ function OpenMarkdownPreview (url)
     echo a:url
 endfunction
 let g:mkdp_browserfunc = 'OpenMarkdownPreview'
+
+lua <<EOF
+local npairs = require('nvim-autopairs')
+npairs.setup({ map_cr = false })
+EOF
+
+" source $HOME/.config/nvim/setup-autopairs.lua
