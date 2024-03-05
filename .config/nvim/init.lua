@@ -156,4 +156,35 @@ vim.opt.tabstop = 4 -- number of spaces that tab will insert
 vim.opt.colorcolumn = '80' -- make a column at 80
 vim.opt.autochdir = true -- use local directory of file
 
-vim.lsp.set_log_level 'debug'
+vim.api.nvim_command [[
+function! GitlabLink(branch)
+    let filepath = expand("%:p")
+    let lineno = line(".")
+    let root = trim(system("git rev-parse --show-toplevel"))
+
+    let reponame = split(root, "/")[-1]
+
+    let filepathlen = strlen(filepath)
+    let rootlen = strlen(root)
+
+    let relativepath = strpart(filepath, rootlen, filepathlen)
+
+    if a:branch == ""
+        let sha = trim(system("git rev-parse --short HEAD"))
+    elseif a:branch == "__default"
+        " https://stackoverflow.com/questions/28666357/how-to-get-default-git-branch
+        " to update local cache of default branch from remote:
+        " git remote set-head origin -a
+        let sha = split(trim(system("git rev-parse --abbrev-ref origin/HEAD")), "/")[-1]
+    else
+        let sha = a:branch
+    endif
+
+    let gitlab = "https://gitlab.i.extrahop.com/core/" .. reponame .. "/-/blob/" .. sha .. relativepath .. "#L" .. lineno
+
+    echo gitlab
+endfunction
+
+command GitlabLink :call GitlabLink('')
+command GitlabLinkDefault :call GitlabLink('__default')
+]]
