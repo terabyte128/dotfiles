@@ -188,3 +188,25 @@ endfunction
 command GitlabLink :call GitlabLink('')
 command GitlabLinkDefault :call GitlabLink('__default')
 ]]
+
+-- wrap comments, add new comment lines automatically
+-- https://neovim.io/doc/user/change.html#fo-table
+vim.opt.formatoptions:append 'cro'
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.tsx', '*.ts' },
+  callback = function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.api.nvim_command '%! prettier -w --parser typescript'
+    vim.api.nvim_win_set_cursor(0, pos)
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.jsx', '*.js' },
+  callback = function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.api.nvim_command '%! prettier -w --parser javascript'
+    vim.api.nvim_win_set_cursor(0, pos)
+  end,
+})

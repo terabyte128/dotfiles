@@ -145,6 +145,33 @@ return {
           },
         },
         marksman = {},
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                autopep8 = {
+                  enabled = false,
+                },
+                flake8 = {
+                  enabled = true,
+                  maxLineLength = 80,
+                },
+                yapf = {
+                  enabled = false,
+                },
+                pyflakes = {
+                  enabled = false,
+                },
+                mccabe = {
+                  enabled = false,
+                },
+                pycodestyle = {
+                  enabled = false,
+                },
+              },
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
