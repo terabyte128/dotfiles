@@ -124,6 +124,15 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'rafamadriz/friendly-snippets',
+      {
+        'zbirenbaum/copilot.lua',
+        opts = {
+          -- suggestion panels are provided by nvim-cmp
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+        },
+      },
+      { 'zbirenbaum/copilot-cmp', opts = {} },
     },
     config = function()
       -- See `:help cmp`
@@ -182,6 +191,7 @@ return {
           end, { 'i', 's' }),
         },
         sources = {
+          { name = 'copilot' },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
