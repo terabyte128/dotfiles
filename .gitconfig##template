@@ -24,3 +24,5 @@
 	defaultBranch = main
 [pull]
 	rebase = true
+[core]
+	excludesfile = {{ env.HOME }}/.gitignore
