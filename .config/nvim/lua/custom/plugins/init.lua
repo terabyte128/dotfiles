@@ -91,6 +91,8 @@ return {
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
+        html = { 'prettier' },
+        css = { 'prettier' },
       },
       formatters = {
         black = {
@@ -195,6 +197,7 @@ return {
     event = 'InsertEnter',
     config = true,
   },
+  { 'ray-x/web-tools.nvim', opts = {} },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
