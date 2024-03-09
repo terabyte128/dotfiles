@@ -12,6 +12,7 @@
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { 'cappyzawa/trim.nvim', opts = {} },
   { 'towolf/vim-helm', ft = 'helm' },
 
   -- NOTE: Plugins can also be added by using a table,
