@@ -117,7 +117,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'enable spelling for files where it makes sense',
   group = vim.api.nvim_create_augroup('spelling', { clear = true }),
-  pattern = { 'gitcommit', 'markdown' },
+  pattern = { 'gitcommit', 'markdown', 'html' },
   callback = function()
     vim.opt_local.spell = true
   end,
@@ -150,11 +150,11 @@ require('lazy').setup {
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-local shiftwidth = 4
-
+-- local shiftwidth = 4
+--
 vim.opt.expandtab = true -- replace tabs with spaces
-vim.opt.shiftwidth = shiftwidth -- spaces for each autoindent step
-vim.opt.tabstop = shiftwidth -- number of spaces that tab will insert
+-- vim.opt.shiftwidth = shiftwidth -- spaces for each autoindent step
+-- vim.opt.tabstop = shiftwidth -- number of spaces that tab will insert
 vim.opt.colorcolumn = '80' -- make a column at 80
 vim.opt.autochdir = true -- use local directory of file
 
