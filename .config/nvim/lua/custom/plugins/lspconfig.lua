@@ -176,6 +176,7 @@ return {
             },
           },
         },
+        ['html-lsp'] = {},
       }
 
       -- Ensure the servers and tools above are installed
