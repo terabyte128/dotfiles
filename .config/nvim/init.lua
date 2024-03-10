@@ -195,7 +195,7 @@ command GitlabLinkDefault :call GitlabLink('__default')
 -- https://neovim.io/doc/user/change.html#fo-table
 vim.opt.formatoptions:append 'cro'
 
-vim.api.nvim_create_autocmd('BufWritePre', {
+--[[ vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.tsx', '*.ts' },
   callback = function()
     local pos = vim.api.nvim_win_get_cursor(0)
@@ -211,4 +211,4 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     vim.api.nvim_command '%! prettier -w --parser javascript'
     vim.api.nvim_win_set_cursor(0, pos)
   end,
-})
+}) ]]
