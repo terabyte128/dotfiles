@@ -34,6 +34,7 @@ return {
         },
       },
       { 'zbirenbaum/copilot-cmp', opts = {} },
+      'ray-x/cmp-treesitter',
     },
     config = function()
       -- See `:help cmp`
@@ -97,6 +98,7 @@ return {
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
+          { name = 'treesitter' },
         },
       }
     end,
