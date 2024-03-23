@@ -128,13 +128,16 @@ setopt histignorealldups sharehistory
 # autoload my functions
 fpath=( ~/.zsh/completion "${fpath[@]}" )
 
-# add macports if installed
-[ -d /opt/local/share/zsh/site-functions ] && fpath=(/opt/local/share/zsh/site-functions $fpath)
-
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.zsh_history
+
+# NB: zpath must be updated BEFORE loading compinit
+if [[ -d "/opt/homebrew" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+    fpath=( /opt/homebrew/share/zsh/site-functions "${fpath[@]}" )
+fi
 
 # Use modern completion system
 autoload -Uz compinit
@@ -445,5 +448,3 @@ LINUX_CERT_PATH="/etc/ssl/certs/ca-certificates.crt"
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
   tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 fi
-
-[[ -d "/opt/homebrew" ]] && export PATH="/opt/homebrew/bin:$PATH"
