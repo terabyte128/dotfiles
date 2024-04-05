@@ -13,6 +13,28 @@
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      local lualine = require 'lualine'
+      lualine.setup {
+        theme = 'solarized_light',
+        sections = {
+          lualine_a = {
+            'mode',
+          },
+          lualine_z = {},
+        },
+        options = {
+          section_separators = '',
+          component_separators = '',
+        },
+      }
+    end,
+  },
   { 'cappyzawa/trim.nvim', opts = {} },
   { 'towolf/vim-helm', ft = 'helm' },
 
@@ -143,23 +165,6 @@ return {
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      statusline.setup()
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we disable the section for
-      -- cursor information because line numbers are already enabled
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        local cursorpos = vim.api.nvim_win_get_cursor(0)[1]
-        local totallines = vim.api.nvim_buf_line_count(0)
-
-        return math.floor(cursorpos / totallines * 100) .. '%%'
-      end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
