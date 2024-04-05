@@ -187,9 +187,10 @@ function! GitlabLink(branch)
     echo gitlab
 endfunction
 
-command GitlabLink :call GitlabLink('')
-command GitlabLinkDefault :call GitlabLink('__default')
 ]]
+
+vim.api.nvim_command "command GitlabLink :call GitlabLink('')"
+vim.api.nvim_command "command GitlabLinkDefault :call GitlabLink('__default')"
 
 -- wrap comments, add new comment lines automatically
 -- https://neovim.io/doc/user/change.html#fo-table
@@ -212,3 +213,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     vim.api.nvim_win_set_cursor(0, pos)
   end,
 }) ]]
+
+vim.lsp.set_log_level 'off'
+
+vim.api.nvim_command 'nnoremap <leader>q q'
+vim.api.nvim_command 'nnoremap q <Nop>'
