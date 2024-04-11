@@ -221,6 +221,7 @@ alias less="less -R"
 alias l="ls"
 alias ll="ls -la"
 alias zz="zellij"
+alias vactivate="source .venv/bin/activate"
 
 # k8s
 alias k="kubectl"
