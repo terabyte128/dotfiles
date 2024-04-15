@@ -431,9 +431,9 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
-if [[ $IS_DEV_CONTAINER = "true" ]]; then
-    alias tmux="tmux new-session 'tmux unbind-key C-b && tmux set-option -g prefix C-v && zsh'"
-fi
+# if [[ $IS_DEV_CONTAINER = "true" ]]; then
+#     alias tmux="tmux new-session 'tmux unbind-key C-b && tmux set-option -g prefix C-v && zsh'"
+# fi
 
 if [[ -d $HOME/go/bin ]]; then
     export PATH="$PATH:$HOME/go/bin"
