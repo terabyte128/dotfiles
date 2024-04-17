@@ -110,7 +110,13 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = function(_)
+          if vim.env.OZDIR ~= nil then
+            return { 'isort', 'black' }
+          else
+            return { 'ruff_fix', 'ruff_format' }
+          end
+        end,
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.

@@ -179,6 +179,7 @@ return {
             },
           },
         },
+        ruff_lsp = {},
         ['html-lsp'] = {},
       }
 
