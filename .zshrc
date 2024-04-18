@@ -450,7 +450,7 @@ if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
 fi
 
 function vactivate() {
-    current=$(dirname "$PWD")
+    current="$PWD"
 
     while [[ "$current" != "/" ]]; do
         if [[ -d "$current/.venv" ]]; then
