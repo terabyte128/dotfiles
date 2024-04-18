@@ -221,7 +221,6 @@ alias less="less -R"
 alias l="ls"
 alias ll="ls -la"
 alias zz="zellij"
-alias vactivate="source .venv/bin/activate"
 
 # k8s
 alias k="kubectl"
@@ -449,3 +448,16 @@ LINUX_CERT_PATH="/etc/ssl/certs/ca-certificates.crt"
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
   tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
 fi
+
+function vactivate() {
+    current=$(dirname "$PWD")
+
+    while [[ "$current" != "/" ]]; do
+        if [[ -d "$current/.venv" ]]; then
+            echo "activating venv in $current"
+            source "$current/.venv/bin/activate"
+            break
+        fi
+        current=$(dirname "$current")
+    done
+}
