@@ -216,8 +216,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 vim.lsp.set_log_level 'off'
 
-vim.api.nvim_command 'nnoremap <leader>q q'
-vim.api.nvim_command 'nnoremap q <Nop>'
+-- vim.api.nvim_command 'nnoremap <leader>q q'
+-- vim.api.nvim_command 'nnoremap q <Nop>'
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   pattern = { 'Dockerfile*' },
