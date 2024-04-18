@@ -149,36 +149,36 @@ return {
           },
         },
         marksman = {},
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                rope_autoimport = {
-                  enabled = true,
-                },
-                autopep8 = {
-                  enabled = false,
-                },
-                flake8 = {
-                  enabled = true,
-                  maxLineLength = 80,
-                },
-                yapf = {
-                  enabled = false,
-                },
-                pyflakes = {
-                  enabled = false,
-                },
-                mccabe = {
-                  enabled = false,
-                },
-                pycodestyle = {
-                  enabled = false,
-                },
-              },
-            },
-          },
-        },
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         rope_autoimport = {
+        --           enabled = true,
+        --         },
+        --         autopep8 = {
+        --           enabled = false,
+        --         },
+        --         flake8 = {
+        --           enabled = true,
+        --           maxLineLength = 80,
+        --         },
+        --         yapf = {
+        --           enabled = false,
+        --         },
+        --         pyflakes = {
+        --           enabled = false,
+        --         },
+        --         mccabe = {
+        --           enabled = false,
+        --         },
+        --         pycodestyle = {
+        --           enabled = false,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         ruff_lsp = {},
         ['html-lsp'] = {},
       }
