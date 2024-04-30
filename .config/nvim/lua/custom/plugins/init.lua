@@ -21,7 +21,7 @@ return {
     config = function()
       local lualine = require 'lualine'
       lualine.setup {
-        theme = 'solarized_light',
+        theme = 'NeoSolarized',
         sections = {
           lualine_a = {
             'mode',
@@ -35,7 +35,9 @@ return {
       }
     end,
   },
-  { 'cappyzawa/trim.nvim', opts = {} },
+  { 'cappyzawa/trim.nvim', opts = {
+    ft_blocklist = { 'diff' },
+  } },
   { 'towolf/vim-helm', ft = 'helm' },
 
   -- NOTE: Plugins can also be added by using a table,
@@ -135,23 +137,18 @@ return {
       },
     },
   },
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'terabyte128/solarized.nvim',
+  {
+    'Tsuzat/NeoSolarized.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      -- Load the colorscheme here
-      vim.opt.background = 'light'
-      vim.cmd.colorscheme 'solarized'
-      -- You can configure highlights by doing something like
-      -- vim.cmd.hi 'Comment gui=none'
+      require('NeoSolarized').setup {
+        style = 'light',
+        transparent = false,
+      }
+      vim.cmd [[ colorscheme NeoSolarized ]]
     end,
   },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
