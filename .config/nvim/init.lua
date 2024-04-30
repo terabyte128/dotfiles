@@ -225,3 +225,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     vim.api.nvim_set_option_value('filetype', 'dockerfile', {})
   end,
 })
+
+vim.cmd.highlight { 'link', '@diff.plus.diff', 'DiffAdd' }
+vim.cmd.highlight { 'link', '@diff.minus.diff', 'DiffDelete' }
