@@ -108,6 +108,15 @@ function leftprompt() {
 
     builder+="$context"
 
+    if command -v terraform > /dev/null; then
+        workspace=$(terraform workspace show)
+
+        if [[ "$workspace" =~ "production" ]]; then
+            builder+="%F{red}prod%f "
+        fi
+    fi
+
+
     # echo -n '\e[6 q' # cursor bar
     echo "${builder}$ "
 }
