@@ -228,3 +228,4 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 
 vim.cmd.highlight { 'link', '@diff.plus.diff', 'DiffAdd' }
 vim.cmd.highlight { 'link', '@diff.minus.diff', 'DiffDelete' }
+vim.cmd.highlight { 'link', '@markup.heading.gitcommit', 'Title' }
