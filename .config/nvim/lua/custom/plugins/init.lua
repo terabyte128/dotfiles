@@ -145,6 +145,13 @@ return {
       require('NeoSolarized').setup {
         style = 'light',
         transparent = false,
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = false },
+          functions = { bold = true },
+          variables = {},
+          string = { italic = false },
+        },
       }
       vim.cmd [[ colorscheme NeoSolarized ]]
     end,
