@@ -108,13 +108,13 @@ function leftprompt() {
 
     builder+="$context"
 
-    if command -v terraform > /dev/null; then
-        workspace=$(terraform workspace show)
-
-        if [[ "$workspace" =~ "production" ]]; then
-            builder+="%F{red}prod%f "
-        fi
-    fi
+    # if command -v terraform > /dev/null; then
+    #     workspace=$(terraform workspace show)
+    #
+    #     if [[ "$workspace" =~ "production" ]]; then
+    #         builder+="%F{red}prod%f "
+    #     fi
+    # fi
 
 
     # echo -n '\e[6 q' # cursor bar
@@ -470,3 +470,9 @@ function vactivate() {
         current=$(dirname "$current")
     done
 }
+
+if [[ -n "$TMUX" ]]; then
+    export TERM="tmux-256color"
+else
+    export TERM="xterm-256color"
+fi
