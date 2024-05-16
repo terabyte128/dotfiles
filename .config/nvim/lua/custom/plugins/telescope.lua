@@ -76,7 +76,25 @@ return {
       vim.keymap.set('n', '<leader>sg', builtin.git_files, { desc = '[S]earch [G]it Files' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sl', builtin.live_grep, { desc = '[S]earch [L]ive Grep' })
+
+      -- if we're in a git directory, then perform live grep from the root
+      -- otherwise, fallback to current directory
+      local function live_grep_git()
+        local path = vim.fn.system 'git rev-parse --show-toplevel'
+        if vim.v.shell_error then
+          path = nil
+        end
+
+        if path == nil then
+          return builtin.live_grep()
+        else
+          return builtin.live_grep {
+            cwd = path,
+          }
+        end
+      end
+
+      vim.keymap.set('n', '<leader>sl', live_grep_git, { desc = '[S]earch [L]ive Grep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
