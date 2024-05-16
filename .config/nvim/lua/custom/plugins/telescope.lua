@@ -79,22 +79,20 @@ return {
 
       -- if we're in a git directory, then perform live grep from the root
       -- otherwise, fallback to current directory
-      local function live_grep_git()
-        local path = vim.fn.system 'git rev-parse --show-toplevel'
-        if vim.v.shell_error then
-          path = nil
+      local function live_grep_from_project_git_root()
+        local function get_git_toplevel()
+          local path = string.gsub(vim.fn.system 'git rev-parse --show-toplevel', '\n', '')
+          if string.find(path, 'fatal') then
+            return nil
+          end
+          return path
         end
 
-        if path == nil then
-          return builtin.live_grep()
-        else
-          return builtin.live_grep {
-            cwd = path,
-          }
-        end
+        local opts = { cwd = get_git_toplevel() }
+        builtin.live_grep(opts)
       end
 
-      vim.keymap.set('n', '<leader>sl', live_grep_git, { desc = '[S]earch [L]ive Grep' })
+      vim.keymap.set('n', '<leader>sl', live_grep_from_project_git_root, { desc = '[S]earch [L]ive Grep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
