@@ -129,6 +129,7 @@ return {
         typescriptreact = { 'prettier' },
         javascriptreact = { 'prettier' },
         json = { 'prettier' },
+        yaml = { 'yamlfix' },
       },
       formatters = {
         black = {

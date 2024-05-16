@@ -429,8 +429,6 @@ function koneoff() {
     kubectl run -it --rm --restart=Never --image "$1" "$2" -- "$3"
 }
 
-export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
-
 # keep around a directory stack
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
