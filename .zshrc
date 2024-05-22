@@ -423,10 +423,15 @@ command_exists terraform && alias tf="terraform"
 
 function koneoff() {
     if [[ $# -eq 0 ]]; then
-        echo "usage: koneoff {image} {pod name} {init command}"
+        echo "usage: koneoff {image} {pod name} {optional init command}"
         return
     fi
-    kubectl run -it --rm --restart=Never --image "$1" "$2" -- "$3"
+
+    if [[ -z "$3" ]]; then
+        kubectl run -it --rm --restart=Never --image "$1" "$2"
+    else
+        kubectl run -it --rm --restart=Never --image "$1" "$2" -- "$3"
+    fi
 }
 
 # keep around a directory stack
