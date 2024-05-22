@@ -93,6 +93,7 @@ return {
       end
 
       vim.keymap.set('n', '<leader>sl', live_grep_from_project_git_root, { desc = '[S]earch [L]ive Grep' })
+      vim.keymap.set('n', '<leader>sc', builtin.live_grep, { desc = '[S]earch Live Grep [C]urrent Directory' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })

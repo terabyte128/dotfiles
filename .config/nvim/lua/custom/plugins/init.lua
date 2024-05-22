@@ -219,7 +219,6 @@ return {
     event = 'InsertEnter',
     config = true,
   },
-  { 'ray-x/web-tools.nvim', opts = {} },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },

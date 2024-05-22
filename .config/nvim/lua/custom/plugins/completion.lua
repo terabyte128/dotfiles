@@ -40,10 +40,20 @@ return {
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local compare = require 'cmp.config.compare'
+
       luasnip.config.setup {}
 
       -- load snippets
       require('luasnip.loaders.from_vscode').lazy_load()
+
+      local function deprioritize_copilot(a, b)
+        if a.copilot and not b.copilot then
+          return true
+        else
+          return false
+        end
+      end
 
       cmp.setup {
         snippet = {
@@ -92,13 +102,30 @@ return {
             end
           end, { 'i', 's' }),
         },
+
         sources = {
-          { name = 'copilot' },
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', priority = 1000 },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
           { name = 'treesitter' },
+          { name = 'copilot', priority = 0 },
+        },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            deprioritize_copilot,
+            compare.offset,
+            compare.exact,
+            -- compare.scopes,
+            compare.score,
+            compare.recently_used,
+            compare.locality,
+            compare.kind,
+            -- compare.sort_text,
+            compare.length,
+            compare.order,
+          },
         },
       }
     end,
