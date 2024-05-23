@@ -1,3 +1,16 @@
+function Log(data)
+  local file = io.open('/tmp/nvim.log', 'a')
+
+  if file then
+    -- Write content to the file
+    file:write(data .. '\n')
+    -- Close the file
+    file:close()
+  else
+    print 'Error opening the file for writing'
+  end
+end
+
 return {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -48,6 +61,8 @@ return {
       require('luasnip.loaders.from_vscode').lazy_load()
 
       local function deprioritize_copilot(a, b)
+        -- return true if a < b
+
         if a.copilot and not b.copilot then
           return true
         else
@@ -104,12 +119,12 @@ return {
         },
 
         sources = {
-          { name = 'nvim_lsp', priority = 1000 },
+          { name = 'nvim_lsp' },
+          { name = 'treesitter' },
+          { name = 'buffer' },
+          { name = 'copilot' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'buffer' },
-          { name = 'treesitter' },
-          { name = 'copilot', priority = 0 },
         },
         sorting = {
           priority_weight = 2,
