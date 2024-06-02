@@ -12,6 +12,9 @@ return {
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       -- corner status window for nicer updates
       { 'j-hui/fidget.nvim', opts = {} },
+      { 'kevinhwang91/nvim-ufo', opts = {}, dependencies = {
+        'kevinhwang91/promise-async',
+      } },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -92,6 +95,10 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
 
       local mason_servers = {
         eslint = {},
