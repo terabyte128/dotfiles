@@ -60,6 +60,8 @@ vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
+vim.opt.relativenumber = true
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
@@ -234,3 +236,8 @@ vim.api.nvim_create_user_command('KubectlApply', function()
   vim.api.nvim_command 'w'
   vim.api.nvim_command '!kubectl apply -f %'
 end, { nargs = 0 })
+
+-- use large folds, detected by https://github.com/kevinhwang91/nvim-ufo
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
