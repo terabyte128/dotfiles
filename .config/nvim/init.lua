@@ -216,7 +216,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 }) ]]
 
-vim.lsp.set_log_level 'off'
+vim.lsp.set_log_level 'info'
 
 -- vim.api.nvim_command 'nnoremap <leader>q q'
 -- vim.api.nvim_command 'nnoremap q <Nop>'
