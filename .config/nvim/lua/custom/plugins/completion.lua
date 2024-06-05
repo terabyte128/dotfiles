@@ -120,6 +120,7 @@ return {
         },
 
         sources = {
+          { name = 'lazydev' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lsp' },
           { name = 'treesitter' },
