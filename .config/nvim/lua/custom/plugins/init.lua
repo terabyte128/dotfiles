@@ -12,7 +12,15 @@
 
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  { 'nvim-tree/nvim-tree.lua', opts = {} },
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      local tree = require 'nvim-tree'
+      tree.setup()
+
+      vim.keymap.set('n', '<leader>tt', '<cmd>NvimTreeOpen<CR>')
+    end,
+  },
   {
     'folke/trouble.nvim',
     opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -148,11 +156,12 @@ return {
 
       -- Document existing key chains
       require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+        ['<leader>c'] = '[C]ode',
+        ['<leader>d'] = '[D]ocument',
+        ['<leader>r'] = '[R]ename',
+        ['<leader>s'] = '[S]earch',
+        ['<leader>w'] = '[W]orkspace',
+        ['<leader>t'] = '[T]ree',
       }
     end,
   },
@@ -168,11 +177,11 @@ return {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = function(_)
-          -- if vim.env.OZDIR ~= nil then
-          --   return { 'isort', 'black' }
-          -- else
-          return { 'ruff_fix', 'ruff_format' }
-          -- end
+          if vim.env.OZDIR ~= nil then
+            return { 'isort', 'black' }
+          else
+            return { 'ruff_fix', 'ruff_format' }
+          end
         end,
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
