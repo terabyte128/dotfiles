@@ -4,17 +4,17 @@
 	name = Sam Wolfson
 {% if yadm.hostname == "pomegranate" %}
 	email = samwolfson@extrahop.com
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6S1WwnePds5ECUSGmD+SQ0ezmQujtpN4BdXLxGxOuW
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6S1WwnePds5ECUSGmD+SQ0ezmQujtpN4BdXLxGxOuW
 {% else %}
-    email = terabyte128@gmail.com
+	email = terabyte128@gmail.com
 {% endif %}
 
 {% if yadm.hostname == "pomegranate" %}
 [gpg]
-  format = ssh
+	format = ssh
 
 [commit]
-  gpgsign = true
+	gpgsign = true
 {% endif %}
 
 [alias]
