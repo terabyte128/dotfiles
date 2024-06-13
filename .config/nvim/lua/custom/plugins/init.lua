@@ -13,6 +13,10 @@
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
+    'karb94/neoscroll.nvim',
+    opts = {},
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     config = function()
       local tree = require 'nvim-tree'
@@ -175,17 +179,25 @@ return {
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
         python = function(_)
-          if vim.env.OZDIR ~= nil then
+          local oz = false
+          local git_cmd = io.popen 'git rev-parse --show-toplevel'
+
+          if git_cmd ~= nil then
+            local git_root = git_cmd:read('*a'):gsub('\n', '')
+            local basename = git_root:match '([^/]+)$'
+            if basename == 'oz' then
+              oz = true
+            end
+          end
+
+          if oz then
             return { 'isort', 'black' }
           else
             return { 'ruff_fix', 'ruff_format' }
           end
         end,
         --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
         html = { 'prettier' },
         css = { 'prettier' },
         typescript = { 'prettier' },
