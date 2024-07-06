@@ -367,11 +367,13 @@ command_exists pio && eval "$(_PIO_COMPLETE=zsh_source pio)"
 if [[ -d "$HOME/.config/fzf-zsh-plugin/bin" ]]; then
     export PATH="$PATH:$HOME/.config/fzf-zsh-plugin/bin"
     source "$HOME/.config/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh"
-elif [[ -f ~/.fzf.zsh ]]; then
-    source ~/.fzf.zsh
+else
+    bindkey '^R' history-incremental-search-backward
+# elif [[ -f ~/.fzf.zsh ]]; then
+#     source ~/.fzf.zsh
 fi
 
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+# [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 [[ -S ~/.1password/agent.sock ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 
