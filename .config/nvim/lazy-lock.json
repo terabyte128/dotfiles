@@ -40,6 +40,7 @@
   "todo-comments.nvim": { "branch": "main", "commit": "e1549807066947818113a7d7ed48f637e49620d3" },
   "trim.nvim": { "branch": "master", "commit": "4fe47a46c02a58894ded8328ca81f6c214a892f5" },
   "trouble.nvim": { "branch": "main", "commit": "915179759c9459b69faae90a38da6fc1ca6b90d7" },
+  "vim-fugitive": { "branch": "master", "commit": "8c8cdf4405cb8bdb70dd9812a33bb52363a87dbc" },
   "vim-helm": { "branch": "master", "commit": "9425cf68d2a73d2efbfd05ab3e8b80ffb5a08802" },
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }

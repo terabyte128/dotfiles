@@ -17,6 +17,9 @@ return {
     opts = {},
   },
   {
+    'tpope/vim-fugitive',
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     config = function()
       local tree = require 'nvim-tree'
@@ -205,7 +208,7 @@ return {
         typescriptreact = { 'prettier' },
         javascriptreact = { 'prettier' },
         json = { 'prettier' },
-        yaml = { 'yamlfix' },
+        yaml = { 'prettier' },
       },
       formatters = {
         black = {
