@@ -101,6 +101,8 @@ return {
       }
 
       local mason_servers = {
+        shfmt = {},
+        bashls = {},
         eslint = {},
         clangd = {},
         gopls = {},
