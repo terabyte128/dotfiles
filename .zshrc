@@ -356,6 +356,10 @@ bindkey '^[f' forward-word
 bindkey '^[[1;3C' forward-word
 bindkey '^[[1;3D' backward-word
 
+# ctrl+P to previous, ctrl+N to next
+bindkey '^P' up-line-or-history
+bindkey '^N' down-line-or-history
+
 # command_exists difft && export GIT_EXTERNAL_DIFF=difft
 
 # Begin: PlatformIO Core completion support
