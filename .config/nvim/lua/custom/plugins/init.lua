@@ -200,11 +200,10 @@ return {
         lua = { 'stylua' },
         python = function(_)
           local oz = false
-          local git_cmd = io.popen 'git rev-parse --show-toplevel'
+          local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
 
-          if git_cmd ~= nil then
-            local git_root = git_cmd:read('*a'):gsub('\n', '')
-            local basename = git_root:match '([^/]+)$'
+          if git_cmd.stdout ~= nil then
+            local basename = git_cmd.stdout:match '([^/]+)\n$'
             if basename == 'oz' then
               oz = true
             end
