@@ -12,6 +12,22 @@
 
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+
+  {
+    'mbbill/undotree',
+    keys = { -- load the plugin only when using it's keybinding:
+      { '<leader>u', '<cmd>UndotreeToggle<cr>' },
+    },
+  },
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
+  },
   {
     'karb94/neoscroll.nvim',
     opts = {},
@@ -162,13 +178,13 @@ return {
       require('which-key').setup()
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = '[C]ode',
-        ['<leader>d'] = '[D]ocument',
-        ['<leader>r'] = '[R]ename',
-        ['<leader>s'] = '[S]earch',
-        ['<leader>w'] = '[W]orkspace',
-        ['<leader>t'] = '[T]ree',
+      require('which-key').add {
+        { '<leader>c', desc = '[C]ode' },
+        { '<leader>d', desc = '[D]ocument' },
+        { '<leader>r', desc = '[R]ename' },
+        { '<leader>s', desc = '[S]earch' },
+        { '<leader>t', desc = '[T]ree' },
+        { '<leader>w', desc = '[W]orkspace' },
       }
     end,
   },
