@@ -38,15 +38,15 @@ return {
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-buffer',
       'rafamadriz/friendly-snippets',
-      {
-        'zbirenbaum/copilot.lua',
-        opts = {
-          -- suggestion panels are provided by nvim-cmp
-          suggestion = { enabled = false },
-          panel = { enabled = false },
-        },
-      },
-      { 'zbirenbaum/copilot-cmp', opts = {} },
+      -- {
+      --   'zbirenbaum/copilot.lua',
+      --   opts = {
+      --     -- suggestion panels are provided by nvim-cmp
+      --     suggestion = { enabled = false },
+      --     panel = { enabled = false },
+      --   },
+      -- },
+      -- { 'zbirenbaum/copilot-cmp', opts = {} },
       'ray-x/cmp-treesitter',
     },
     config = function()

@@ -221,12 +221,12 @@ vim.lsp.set_log_level 'info'
 -- vim.api.nvim_command 'nnoremap <leader>q q'
 -- vim.api.nvim_command 'nnoremap q <Nop>'
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = { 'Dockerfile*' },
-  callback = function()
-    vim.api.nvim_set_option_value('filetype', 'dockerfile', {})
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+--   pattern = { 'Dockerfile*' },
+--   callback = function()
+--     vim.api.nvim_set_option_value('filetype', 'dockerfile', {})
+--   end,
+-- })
 
 vim.cmd.highlight { 'link', '@diff.plus.diff', 'DiffAdd' }
 vim.cmd.highlight { 'link', '@diff.minus.diff', 'DiffDelete' }
