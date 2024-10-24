@@ -216,7 +216,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 }) ]]
 
-vim.lsp.set_log_level 'info'
+-- vim.lsp.set_log_level 'info'
 
 -- vim.api.nvim_command 'nnoremap <leader>q q'
 -- vim.api.nvim_command 'nnoremap q <Nop>'
@@ -236,6 +236,10 @@ vim.api.nvim_create_user_command('KubectlApply', function()
   vim.api.nvim_command 'w'
   vim.api.nvim_command '!kubectl apply -f %'
 end, { nargs = 0 })
+
+vim.keymap.set('n', '<leader>cd', function()
+  vim.diagnostic.open_float()
+end, { desc = 'Show [d]iagnostics for current line' })
 
 -- use large folds, detected by https://github.com/kevinhwang91/nvim-ufo
 vim.o.foldlevel = 99
