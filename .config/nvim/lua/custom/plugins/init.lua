@@ -224,8 +224,12 @@ return {
         javascriptreact = { 'prettier' },
         json = { 'prettier' },
         yaml = { 'prettier' },
+        sh = { 'shfmt' },
       },
       formatters = {
+        shfmt = {
+          prepend_args = { '-i', '4', '-ci', '-bn' },
+        },
         black = {
           prepend_args = { '--line-length', '80' },
         },
