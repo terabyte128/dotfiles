@@ -26,6 +26,18 @@ vim.opt.showmode = false
 --  See `:help 'clipboard'`
 -- vim.opt.clipboard = 'unnamedplus'
 
+vim.g.clipboard = {
+  name = 'tmux',
+  copy = {
+    ['+'] = { 'tmux', 'load-buffer', '-' },
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = { 'tmux', 'save-buffer', '-' },
+    -- ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}
+
 -- Enable break indent
 vim.opt.breakindent = true
 
