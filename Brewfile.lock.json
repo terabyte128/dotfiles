@@ -2776,6 +2776,9 @@
               "sha256": "e1e92ca409631c8006533f00706aeb966dcd6d7ee175b51c8aceeab523ebb3f5"
             }
           }
+        },
+        "options": {
+          "link": false
         }
       },
       "tlrc": {
@@ -3423,6 +3426,40 @@
       "pomerium/tap/pomerium-cli": {
         "version": "0.23.0",
         "bottle": false
+      },
+      "mas": {
+        "version": "1.8.7",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_sequoia": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:5f79bc1592e59900e5f876a255259a0aed774069109e2b608ffcac46bac66b52",
+              "sha256": "5f79bc1592e59900e5f876a255259a0aed774069109e2b608ffcac46bac66b52"
+            },
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:5bae1f14f8522dc16f69b00371ae12221b6550456dd12ed0238df72cdd68f20e",
+              "sha256": "5bae1f14f8522dc16f69b00371ae12221b6550456dd12ed0238df72cdd68f20e"
+            },
+            "arm64_ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:e3a4df50b78219917927a482dfde491edc3524d41211fea9e507ac7a47700b1c",
+              "sha256": "e3a4df50b78219917927a482dfde491edc3524d41211fea9e507ac7a47700b1c"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:7915e683c7579d8289934b4eb162997b74ab0cf0ad8378dd6158872965f07cdf",
+              "sha256": "7915e683c7579d8289934b4eb162997b74ab0cf0ad8378dd6158872965f07cdf"
+            },
+            "ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/mas/blobs/sha256:a7862ed579d42f662bbb41d4611452444e3cecfe747c09774a2cbdfd844c448a",
+              "sha256": "a7862ed579d42f662bbb41d4611452444e3cecfe747c09774a2cbdfd844c448a"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -3497,6 +3534,18 @@
         "options": {
           "full_name": "wireshark"
         }
+      },
+      "1password": {
+        "version": "8.10.50",
+        "options": {
+          "full_name": "1password"
+        }
+      },
+      "arc": {
+        "version": "1.67.2,55679",
+        "options": {
+          "full_name": "arc"
+        }
       }
     },
     "vscode": {
@@ -3525,6 +3574,68 @@
       "surendrajat.apklab": null,
       "vscodevim.vim": null,
       "yzane.markdown-pdf": null
+    },
+    "mas": {
+      "Developer": {
+        "id": "640199958",
+        "version": "10.6.7"
+      },
+      "Discovery": {
+        "id": "1381004916",
+        "version": "2.1.0"
+      },
+      "Goodnotes": {
+        "id": "1444383602",
+        "version": "6.5.12"
+      },
+      "iMovie": {
+        "id": "408981434",
+        "version": "10.4.2"
+      },
+      "Key Codes": {
+        "id": "414568915",
+        "version": "2.2.1"
+      },
+      "Keynote": {
+        "id": "409183694",
+        "version": "14.2"
+      },
+      "Magnet": {
+        "id": "441258766",
+        "version": "3.0.4"
+      },
+      "MQTT Explorer": {
+        "id": "1455214828",
+        "version": "0.3.5"
+      },
+      "Numbers": {
+        "id": "409203825",
+        "version": "14.2"
+      },
+      "Pages": {
+        "id": "409201541",
+        "version": "14.2"
+      },
+      "Pay Attention!": {
+        "id": "6701986654",
+        "version": "1.0"
+      },
+      "Pixelmator Pro": {
+        "id": "1289583905",
+        "version": "3.6.12"
+      },
+      "Playgrounds": {
+        "id": "1496833156",
+        "version": "4.5.1"
+      },
+      "WireGuard": {
+        "id": "1451685025",
+        "version": "1.0.16"
+      },
+      "Xcode": {
+        "id": "497799835",
+        "version": "16.1"
+      }
     }
   },
   "system": {
