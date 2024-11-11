@@ -15,7 +15,6 @@ brew "autoconf"
 brew "btop"
 brew "bzip2"
 brew "cocoapods"
-brew "qemu"
 brew "lima"
 brew "colima"
 brew "difftastic"
@@ -26,11 +25,12 @@ brew "docker"
 brew "docker-buildx"
 brew "docker-compose"
 brew "duti"
+brew "pango"
+brew "tesseract"
 brew "ffmpeg"
 brew "fnm"
 brew "fzf"
 brew "gnu-sed"
-brew "librsvg"
 brew "handbrake"
 brew "helm"
 brew "htop"
@@ -41,7 +41,9 @@ brew "jq"
 brew "kubernetes-cli"
 brew "lazygit"
 brew "libmediainfo"
+brew "librsvg"
 brew "make"
+brew "mas"
 brew "media-info"
 brew "mosquitto"
 brew "ncdu"
@@ -57,6 +59,7 @@ brew "python-requests", link: false
 brew "python-setuptools"
 brew "python@3.10"
 brew "pyyaml"
+brew "qemu"
 brew "ripgrep"
 brew "ruff"
 brew "showkey"
@@ -66,7 +69,7 @@ brew "swiftformat"
 brew "swiftlint"
 brew "telnet"
 brew "terraform"
-brew "tldr"
+brew "tldr", link: false
 brew "tlrc"
 brew "tmux"
 brew "tree"
@@ -83,6 +86,8 @@ brew "yt-dlp"
 brew "zenith"
 brew "emqx/mqttx/mqttx-cli"
 brew "getsentry/tools/sentry-wizard"
+cask "1password"
+cask "arc"
 cask "font-monaspace"
 cask "macfuse"
 cask "mitmproxy"
@@ -91,6 +96,20 @@ cask "ngrok"
 cask "swiftformat-for-xcode"
 cask "wezterm"
 cask "wireshark"
+mas "Developer", id: 640199958
+mas "Discovery", id: 1381004916
+mas "iMovie", id: 408981434
+mas "Key Codes", id: 414568915
+mas "Keynote", id: 409183694
+mas "Magnet", id: 441258766
+mas "MQTT Explorer", id: 1455214828
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Pay Attention!", id: 6701986654
+mas "Pixelmator Pro", id: 1289583905
+mas "Playgrounds", id: 1496833156
+mas "WireGuard", id: 1451685025
+mas "Xcode", id: 497799835
 vscode "appliedengdesign.vscode-gcode-syntax"
 vscode "charliermarsh.ruff"
 vscode "donjayamanne.githistory"
