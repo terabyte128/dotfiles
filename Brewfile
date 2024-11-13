@@ -1,7 +1,6 @@
 tap "emqx/mqttx"
 tap "getsentry/tools"
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
 tap "homebrew/services"
 tap "ngrok/ngrok"
 tap "pulumi/tap"
@@ -54,11 +53,8 @@ brew "nvm"
 brew "parallel"
 brew "pipx"
 brew "platformio"
-brew "python-click", link: false
-brew "python-requests", link: false
 brew "python-setuptools"
 brew "python@3.10"
-brew "pyyaml"
 brew "qemu"
 brew "ripgrep"
 brew "ruff"
@@ -66,7 +62,6 @@ brew "showkey"
 brew "siege"
 brew "step"
 brew "swiftformat"
-brew "swiftlint"
 brew "telnet"
 brew "terraform"
 brew "tldr", link: false
@@ -88,16 +83,25 @@ brew "emqx/mqttx/mqttx-cli"
 brew "getsentry/tools/sentry-wizard"
 cask "1password"
 cask "arc"
+cask "bartender"
+cask "dropbox"
 cask "font-monaspace"
 cask "macfuse"
 cask "mitmproxy"
 cask "mqttx"
 cask "ngrok"
+cask "raycast"
+cask "shottr"
+cask "spotify"
 cask "swiftformat-for-xcode"
+cask "viscosity"
+cask "visual-studio-code"
 cask "wezterm"
 cask "wireshark"
+cask "zoom"
 mas "Developer", id: 640199958
 mas "Discovery", id: 1381004916
+mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "Key Codes", id: 414568915
 mas "Keynote", id: 409183694

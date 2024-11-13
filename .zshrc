@@ -485,3 +485,5 @@ function vactivate() {
 # else
 #     export TERM="xterm-256color"
 # fi
+
+command_exists fzf && source <(fzf --zsh)

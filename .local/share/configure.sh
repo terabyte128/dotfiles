@@ -1,4 +1,4 @@
-HOSTNAME=Lovelace
+HOSTNAME=Latke
 
 if [[ -z $HOSTNAME ]]; then
     echo "HOSTNAME is required"
