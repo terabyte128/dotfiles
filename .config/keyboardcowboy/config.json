@@ -1,0 +1,240 @@
+[
+  {
+    "groups" : [
+      {
+        "color" : "#000",
+        "id" : "842FC830-8093-4781-BA15-6D51C8B3D225",
+        "name" : "Open Application",
+        "symbol" : "laptopcomputer",
+        "workflows" : [
+          {
+            "commands" : [
+              {
+                "applicationCommand" : {
+                  "action" : "open",
+                  "application" : {
+                    "bundleIdentifier" : "com.github.wez.wezterm",
+                    "bundleName" : "WezTerm",
+                    "metadata" : {
+                      "isAgent" : false,
+                      "isElectron" : false,
+                      "isSafariWebApp" : false
+                    },
+                    "path" : "\/Applications\/WezTerm.app"
+                  },
+                  "meta" : {
+                    "enabled" : true,
+                    "id" : "1A128F4D-AFEA-42B0-B2A7-687612A8A2B3",
+                    "name" : "Open WezTerm.app"
+                  },
+                  "modifiers" : [
+
+                  ]
+                }
+              }
+            ],
+            "execution" : "concurrent",
+            "id" : "88924627-6CC6-4BA3-82CC-E0F338021A7E",
+            "name" : "WezTerm",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : false,
+                "shortcuts" : [
+                  {
+                    "id" : "6CFD6E4B-77D4-459B-8B8B-F2A66D6EF7C0",
+                    "key" : "z",
+                    "modifiers" : [
+                      "~"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "commands" : [
+              {
+                "applicationCommand" : {
+                  "action" : "open",
+                  "application" : {
+                    "bundleIdentifier" : "com.apple.MobileSMS",
+                    "bundleName" : "Messages",
+                    "metadata" : {
+                      "isAgent" : false,
+                      "isElectron" : false,
+                      "isSafariWebApp" : false
+                    },
+                    "path" : "\/System\/Applications\/Messages.app"
+                  },
+                  "meta" : {
+                    "enabled" : true,
+                    "id" : "13DE0A13-C398-45CA-AB01-F2F63CBDBA1D",
+                    "name" : "Open Messages.app"
+                  },
+                  "modifiers" : [
+
+                  ]
+                }
+              }
+            ],
+            "execution" : "concurrent",
+            "id" : "4B224000-D22D-4719-AC29-0D21DDBDF0DD",
+            "name" : "Messages",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : false,
+                "shortcuts" : [
+                  {
+                    "id" : "6E190AC2-99DE-4342-B7DA-1C1A21019CEE",
+                    "key" : "m",
+                    "modifiers" : [
+                      "~"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "commands" : [
+              {
+                "applicationCommand" : {
+                  "action" : "open",
+                  "application" : {
+                    "bundleIdentifier" : "company.thebrowser.Browser",
+                    "bundleName" : "Arc",
+                    "metadata" : {
+                      "isAgent" : false,
+                      "isElectron" : false,
+                      "isSafariWebApp" : false
+                    },
+                    "path" : "\/Applications\/Arc.app"
+                  },
+                  "meta" : {
+                    "enabled" : true,
+                    "id" : "1315FC51-0C62-4873-871A-BD4634711FF2",
+                    "name" : "Open Arc.app"
+                  },
+                  "modifiers" : [
+
+                  ]
+                }
+              }
+            ],
+            "execution" : "concurrent",
+            "id" : "538E1E36-CCED-477E-A685-22C091363353",
+            "name" : "Arc",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : false,
+                "shortcuts" : [
+                  {
+                    "id" : "A10D39A3-040D-43AE-B160-95203C239D1A",
+                    "key" : "s",
+                    "modifiers" : [
+                      "~"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "commands" : [
+              {
+                "applicationCommand" : {
+                  "action" : "open",
+                  "application" : {
+                    "bundleIdentifier" : "com.spotify.client",
+                    "bundleName" : "Spotify",
+                    "metadata" : {
+                      "isAgent" : false,
+                      "isElectron" : false,
+                      "isSafariWebApp" : false
+                    },
+                    "path" : "\/Applications\/Spotify.app"
+                  },
+                  "meta" : {
+                    "enabled" : true,
+                    "id" : "362CCF61-1FE8-4F3E-A173-30AEA148E56D",
+                    "name" : "Open Spotify.app"
+                  },
+                  "modifiers" : [
+
+                  ]
+                }
+              }
+            ],
+            "execution" : "concurrent",
+            "id" : "CC3A985D-F716-4151-A2C0-B28D619CA411",
+            "name" : "Spotify",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : false,
+                "shortcuts" : [
+                  {
+                    "id" : "0F2FB80B-4B25-48C0-BC88-D1E7C6729686",
+                    "key" : "m",
+                    "modifiers" : [
+                      "$",
+                      "~"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "commands" : [
+              {
+                "applicationCommand" : {
+                  "action" : "open",
+                  "application" : {
+                    "bundleIdentifier" : "ru.keepcoder.Telegram",
+                    "bundleName" : "Telegram",
+                    "metadata" : {
+                      "isAgent" : false,
+                      "isElectron" : false,
+                      "isSafariWebApp" : false
+                    },
+                    "path" : "\/Applications\/Telegram.app"
+                  },
+                  "meta" : {
+                    "enabled" : true,
+                    "id" : "FD3C014D-0C43-4C04-817D-C411B392222F",
+                    "name" : "Open Telegram.app"
+                  },
+                  "modifiers" : [
+
+                  ]
+                }
+              }
+            ],
+            "execution" : "concurrent",
+            "id" : "78223B6C-6F8E-4B0C-8BD9-C6C75AF91DB2",
+            "name" : "Telegram",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : false,
+                "shortcuts" : [
+                  {
+                    "id" : "AD12369E-E17B-4EF5-8EBF-847ABA0E7DCF",
+                    "key" : "t",
+                    "modifiers" : [
+                      "~"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "id" : "A5B9F0D4-E789-4454-870A-D7E7B8E8D422",
+    "name" : "Default configuration",
+    "userModes" : [
+
+    ]
+  }
+]
