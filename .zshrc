@@ -320,6 +320,8 @@ function kc() {
     direnv reload
 }
 
+alias kgc="kubectl config view --minify 2>&1 | grep namespace | cut -c 16-"
+
 function groot() {
     cd $(git rev-parse --show-toplevel)
 }
