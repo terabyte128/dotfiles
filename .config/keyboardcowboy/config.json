@@ -13,14 +13,14 @@
                 "applicationCommand" : {
                   "action" : "open",
                   "application" : {
-                    "bundleIdentifier" : "com.github.wez.wezterm",
-                    "bundleName" : "WezTerm",
+                    "bundleIdentifier" : "com.mitchellh.ghostty",
+                    "bundleName" : "Ghostty",
                     "metadata" : {
                       "isAgent" : false,
                       "isElectron" : false,
                       "isSafariWebApp" : false
                     },
-                    "path" : "\/Applications\/WezTerm.app"
+                    "path" : "\/Applications\/Ghostty.app"
                   },
                   "meta" : {
                     "enabled" : true,
@@ -35,7 +35,7 @@
             ],
             "execution" : "concurrent",
             "id" : "88924627-6CC6-4BA3-82CC-E0F338021A7E",
-            "name" : "WezTerm",
+            "name" : "Terminal",
             "trigger" : {
               "keyboardShortcuts" : {
                 "passthrough" : false,
@@ -220,6 +220,50 @@
                   {
                     "id" : "AD12369E-E17B-4EF5-8EBF-847ABA0E7DCF",
                     "key" : "t",
+                    "modifiers" : [
+                      "~"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "color" : "#000",
+        "id" : "358DABA2-6E16-4D7E-8093-52E251B8D341",
+        "name" : "Actions",
+        "symbol" : "folder",
+        "workflows" : [
+          {
+            "commands" : [
+              {
+                "scriptCommand" : {
+                  "kind" : "sh",
+                  "meta" : {
+                    "enabled" : true,
+                    "id" : "715A34D8-B5C4-4611-A998-2CBBF9E4ED3D",
+                    "name" : "Run Shell Script"
+                  },
+                  "source" : {
+                    "inline" : {
+                      "_0" : "pmset sleepnow"
+                    }
+                  }
+                }
+              }
+            ],
+            "execution" : "concurrent",
+            "id" : "B94BD6F4-105A-4AEC-8FA4-683B88E23F00",
+            "name" : "Untitled workflow",
+            "trigger" : {
+              "keyboardShortcuts" : {
+                "passthrough" : false,
+                "shortcuts" : [
+                  {
+                    "id" : "A967844D-41C2-4A49-869A-357409743A67",
+                    "key" : "e",
                     "modifiers" : [
                       "~"
                     ]
