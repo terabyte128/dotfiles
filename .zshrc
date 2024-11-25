@@ -248,6 +248,7 @@ alias kci="kubectl -n cluster-ingress"
 alias kcm="kubectl -n cert-manager"
 alias koi="kubectl -n opa-istio"
 alias kd='kubectl -n default'
+alias oz=groot
 
 command_exists batcat && alias bat=batcat
 command_exists ozcli && alias oc="ozcli"
@@ -255,7 +256,6 @@ command_exists nvim && alias vim="nvim"
 
 if iswork; then
     alias dev="cd $OZDIR/infrastructure/orchestration/development"
-    alias oz="cd $OZDIR"
     alias tagnow="export TAG=$(date '+%s')"
 fi
 

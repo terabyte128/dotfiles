@@ -105,7 +105,7 @@ return {
         bashls = {},
         eslint = {},
         clangd = {},
-        gopls = {},
+        -- gopls = {},
         pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -114,7 +114,7 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        ts_ls = {},
         helm_ls = {},
         jsonls = {},
         yamlls = {
@@ -188,8 +188,9 @@ return {
         --     },
         --   },
         -- },
-        ruff_lsp = {},
+        ruff = {},
         ['html-lsp'] = {},
+        sourcekit = {},
       }
 
       -- Ensure the servers and tools above are installed
