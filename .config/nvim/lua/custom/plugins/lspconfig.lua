@@ -190,7 +190,6 @@ return {
         -- },
         ruff = {},
         ['html-lsp'] = {},
-        sourcekit = {},
       }
 
       -- Ensure the servers and tools above are installed
