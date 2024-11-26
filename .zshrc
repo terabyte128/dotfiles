@@ -248,7 +248,10 @@ alias kci="kubectl -n cluster-ingress"
 alias kcm="kubectl -n cert-manager"
 alias koi="kubectl -n opa-istio"
 alias kd='kubectl -n default'
-alias oz=groot
+
+function oz() {
+    groot 2>/dev/null || cd $OZDIR
+}
 
 command_exists batcat && alias bat=batcat
 command_exists ozcli && alias oc="ozcli"
@@ -323,7 +326,13 @@ function kc() {
 alias kgc="kubectl config view --minify 2>&1 | grep namespace | cut -c 16-"
 
 function groot() {
-    cd $(git rev-parse --show-toplevel)
+    root="$(git rev-parse --show-toplevel)"
+
+    if [[ "$?" != "0" ]]; then
+        return 1
+    fi
+
+    cd "$root"
 }
 
 # use ripgrep if installed
