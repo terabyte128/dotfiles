@@ -64,6 +64,7 @@ return {
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('<leader>of', vim.diagnostic.open_float, 'Open Float')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header
@@ -105,7 +106,8 @@ return {
         bashls = {},
         eslint = {},
         clangd = {},
-        -- gopls = {},
+        gopls = {},
+        ['golangci-lint'] = {},
         pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -220,6 +222,8 @@ return {
           end,
         },
       }
+
+      require('lspconfig').sourcekit.setup {}
     end,
   },
 }
