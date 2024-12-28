@@ -229,7 +229,7 @@ alias w="watch "
 alias less="less -R"
 alias l="ls"
 alias ll="ls -la"
-alias zz="zellij"
+alias compose="docker compose"
 
 # k8s
 alias k="kubectl"
@@ -349,7 +349,7 @@ autoload -U +X bashcompinit && bashcompinit
 # autocompletion
 command_exists kubectl && source <(kubectl completion zsh)
 command_exists eksctl && source <(eksctl completion zsh)
-command_exists aws && complete -C '/usr/local/bin/aws_completer' aws
+command_exists aws && command_exists aws_completer && complete -C "$(which aws_completer)" aws
 command_exists terraform && complete -o nospace -C $(which terraform) terraform
 
 # use bash-style word deletion (split on /)
@@ -498,3 +498,13 @@ function vactivate() {
 # fi
 
 command_exists fzf && source <(fzf --zsh)
+
+listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
