@@ -170,52 +170,68 @@ return {
   },
   { -- Autoformat
     'stevearc/conform.nvim',
-    opts = {
-      notify_on_error = true,
-      format_on_save = {
-        timeout_ms = 5000,
-        lsp_fallback = true,
-      },
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        python = function(_)
-          local oz = false
-          local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
+    config = function()
+      local conform = require 'conform'
+      local opts = {
+        notify_on_error = true,
+        format_on_save = {
+          timeout_ms = 5000,
+          lsp_fallback = true,
+        },
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          python = function(_)
+            local oz = false
+            local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
 
-          if git_cmd.stdout ~= nil then
-            local basename = git_cmd.stdout:match '([^/]+)\n$'
-            if basename == 'oz' then
-              oz = true
+            if git_cmd.stdout ~= nil then
+              local basename = git_cmd.stdout:match '([^/]+)\n$'
+              if basename == 'oz' then
+                oz = true
+              end
             end
-          end
+            if oz then
+              return { 'isort', 'black' }
+            else
+              return { 'ruff_fix', 'ruff_format' }
+            end
+          end,
+          html = { 'prettier' },
+          css = { 'prettier' },
+          typescript = { 'prettier' },
+          javascript = { 'prettier' },
+          typescriptreact = { 'prettier' },
+          javascriptreact = { 'prettier' },
+          markdown = { 'prettier_markdown' },
+          json = { 'prettier' },
+          yaml = { 'prettier' },
+          sh = { 'shfmt' },
+        },
+        formatters = {
+          shfmt = {
+            prepend_args = { '-i', '4', '-ci', '-bn' },
+          },
+          black = {
+            prepend_args = { '--line-length', '80' },
+          },
+        },
+      }
 
-          if oz then
-            return { 'isort', 'black' }
-          else
-            return { 'ruff_fix', 'ruff_format' }
-          end
-        end,
-        --
-        html = { 'prettier' },
-        css = { 'prettier' },
-        typescript = { 'prettier' },
-        javascript = { 'prettier' },
-        typescriptreact = { 'prettier' },
-        javascriptreact = { 'prettier' },
-        json = { 'prettier' },
-        yaml = { 'prettier' },
-        sh = { 'shfmt' },
-        swift = { 'swiftformat' },
-      },
-      formatters = {
-        shfmt = {
-          prepend_args = { '-i', '4', '-ci', '-bn' },
-        },
-        black = {
-          prepend_args = { '--line-length', '80' },
-        },
-      },
-    },
+      require('conform').setup(opts)
+
+      -- https://github.com/stevearc/conform.nvim/issues/339
+      local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
+      require('conform.util').add_formatter_args(markdown_formatter, {
+        '--prose-wrap',
+        'always',
+        '--print-width',
+        '80',
+      }, { append = false })
+      ---@cast markdown_formatter conform.FormatterConfigOverride
+      require('conform').formatters.prettier_markdown = markdown_formatter
+
+      conform.setup(opts)
+    end,
   },
   {
     'Tsuzat/NeoSolarized.nvim',

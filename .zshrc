@@ -347,7 +347,7 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 
 # autocompletion
-command_exists kubectl && source <(kubectl completion zsh)
+# command_exists kubectl && source <(kubectl completion zsh)
 command_exists eksctl && source <(eksctl completion zsh)
 command_exists aws && command_exists aws_completer && complete -C "$(which aws_completer)" aws
 command_exists terraform && complete -o nospace -C $(which terraform) terraform
