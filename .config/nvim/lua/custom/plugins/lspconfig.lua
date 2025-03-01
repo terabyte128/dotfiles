@@ -107,6 +107,7 @@ return {
         eslint = {},
         clangd = {},
         gopls = {},
+        ['docker-compose-language-service'] = {},
         ['golangci-lint'] = {},
         pyright = {},
         rust_analyzer = {},
@@ -119,6 +120,7 @@ return {
         ts_ls = {},
         helm_ls = {},
         jsonls = {},
+        taplo = {},
         yamlls = {
           settings = {
             yaml = {
