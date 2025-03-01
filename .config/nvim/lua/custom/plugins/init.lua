@@ -12,7 +12,24 @@
 
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+  {
+    'robitx/gp.nvim',
+    config = function()
+      local conf = {
+        providers = {
+          openai = {
+            disable = true,
+          },
+          copilot = {
+            disable = false,
+          },
+        },
+      }
+      require('gp').setup(conf)
 
+      -- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
+    end,
+  },
   {
     'mbbill/undotree',
     keys = { -- load the plugin only when using it's keybinding:
