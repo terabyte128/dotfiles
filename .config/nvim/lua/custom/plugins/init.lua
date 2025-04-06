@@ -13,6 +13,14 @@
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
+    'f-person/auto-dark-mode.nvim',
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
     'robitx/gp.nvim',
     config = function()
       local conf = {
@@ -23,6 +31,21 @@ return {
           copilot = {
             disable = false,
           },
+          googleai = {
+            disable = true,
+          },
+        },
+        agents = {
+          -- {
+          --   provider = 'googleai',
+          --   name = 'ChatGemini',
+          --   chat = true,
+          --   command = false,
+          --   -- string with model name or table with model name and parameters
+          --   model = { model = 'gemini-2.0-flash', temperature = 1.1, top_p = 1 },
+          --   -- system prompt (use this to specify the persona/role of the AI)
+          --   system_prompt = require('gp.defaults').chat_system_prompt,
+          -- },
         },
       }
       require('gp').setup(conf)
@@ -256,7 +279,7 @@ return {
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('NeoSolarized').setup {
-        style = 'light',
+        -- style = 'dark',
         transparent = false,
         styles = {
           comments = { italic = true },

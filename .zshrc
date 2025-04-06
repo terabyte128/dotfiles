@@ -508,3 +508,5 @@ listening() {
         echo "Usage: listening [pattern]"
     fi
 }
+
+export EMAIL="terabyte128@gmail.com"

@@ -1,7 +1,22 @@
 local wezterm = require("wezterm")
 
+local get_appearance = function()
+	if wezterm.gui then
+		return wezterm.gui.get_appearance()
+	end
+	return "Light"
+end
+
+local color_scheme
+
+if get_appearance():find("Dark") then
+	color_scheme = "Solarized Dark (Gogh)"
+else
+	color_scheme = "Solarized Light (Gogh)"
+end
+
 local config = {
-	color_scheme = "Solarized Light (Gogh)",
+	color_scheme = color_scheme,
 	font = wezterm.font_with_fallback({
 		{
 			family = "Monaspace Neon",

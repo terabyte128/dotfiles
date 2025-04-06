@@ -193,6 +193,7 @@ return {
         --   },
         -- },
         ruff = {},
+        tailwindcss = {},
         ['html-lsp'] = {},
       }
 
