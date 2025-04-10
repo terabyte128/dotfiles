@@ -10,6 +10,29 @@
 --
 -- NOTE: Here is where you install your plugins.
 
+---@param use_dark_mode boolean
+local function setup_colorscheme(use_dark_mode)
+  local colorscheme
+  if use_dark_mode then
+    colorscheme = "dark"
+  else
+    colorscheme = "light"
+  end
+
+  require('NeoSolarized').setup {
+    style = colorscheme,
+    transparent = false,
+    styles = {
+      comments = { italic = true },
+      keywords = { italic = false },
+      functions = { bold = true },
+      variables = {},
+      string = { italic = false },
+    },
+  }
+  vim.cmd [[ colorscheme NeoSolarized ]]
+end
+
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
@@ -37,6 +60,12 @@ return {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
+      set_dark_mode = function()
+        setup_colorscheme(true)
+      end,
+      set_light_mode = function()
+        setup_colorscheme(false)
+      end
     },
   },
   {
@@ -160,10 +189,13 @@ return {
       }
     end,
   },
-  { 'cappyzawa/trim.nvim', opts = {
-    ft_blocklist = { 'diff' },
-  } },
-  { 'towolf/vim-helm', ft = 'helm' },
+  {
+    'cappyzawa/trim.nvim',
+    opts = {
+      ft_blocklist = { 'diff' },
+    }
+  },
+  { 'towolf/vim-helm',       ft = 'helm' },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -210,7 +242,7 @@ return {
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -294,11 +326,11 @@ return {
   },
   {
     'Tsuzat/NeoSolarized.nvim',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('NeoSolarized').setup {
-        -- style = 'dark',
+        style = 'light',
         transparent = false,
         styles = {
           comments = { italic = true },
