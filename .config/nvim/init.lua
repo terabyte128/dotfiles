@@ -181,73 +181,57 @@ vim.opt.tabstop = shiftwidth -- number of spaces that tab will insert
 vim.opt.colorcolumn = '80' -- make a column at 80
 vim.opt.autochdir = true -- use local directory of file
 
-vim.api.nvim_command [[
-function! GitlabLink(branch)
-    let filepath = expand("%:p")
-    let lineno = line(".")
-    let root = trim(system("git rev-parse --show-toplevel"))
+local function run_cmd(cmd)
+  local handle = io.popen(cmd)
+  if handle then
+    local result = handle:read '*a'
+    handle:close()
+    return (result or ''):gsub('%s+$', '') -- trim trailing whitespace
+  end
+  return ''
+end
 
-    let reponame = split(root, "/")[-1]
+---@param use_default boolean
+local function get_gitlab_link(use_default)
+  local filepath = vim.api.nvim_buf_get_name(0) -- absolute path of current buffer
+  local lineno = vim.api.nvim_win_get_cursor(0)[1] -- current line number
 
-    let filepathlen = strlen(filepath)
-    let rootlen = strlen(root)
+  local root = run_cmd 'git rev-parse --show-toplevel'
+  if root == '' then
+    print 'Not in a Git repo'
+    return
+  end
 
-    let relativepath = strpart(filepath, rootlen, filepathlen)
+  local reponame = root:match '([^/]+)$'
+  local relativepath = filepath:sub(#root + 1)
 
-    if a:branch == ""
-        let sha = trim(system("git rev-parse --short HEAD"))
-    elseif a:branch == "__default"
-        " https://stackoverflow.com/questions/28666357/how-to-get-default-git-branch
-        " to update local cache of default branch from remote:
-        " git remote set-head origin -a
-        let sha = split(trim(system("git rev-parse --abbrev-ref origin/HEAD")), "/")[-1]
-    else
-        let sha = a:branch
-    endif
+  local sha
+  if use_default then
+    sha = run_cmd 'git rev-parse --short origin/main'
+  else
+    sha = run_cmd 'git rev-parse --short HEAD'
+  end
 
-    let gitlab = "https://gitlab.i.extrahop.com/core/" .. reponame .. "/-/blob/" .. sha .. relativepath .. "#L" .. lineno
+  local gitlab = string.format('https://gitlab.i.extrahop.com/core/%s/-/blob/%s%s', reponame, sha, relativepath)
 
-    echo gitlab
-endfunction
+  if lineno ~= 1 then
+    gitlab = gitlab .. '#L' .. lineno
+  end
 
-]]
+  print(gitlab)
+end
 
-vim.api.nvim_command "command GitlabLink :call GitlabLink('')"
-vim.api.nvim_command "command GitlabLinkDefault :call GitlabLink('__default')"
+vim.api.nvim_create_user_command('Gitlab', function()
+  get_gitlab_link(false)
+end, {})
+
+vim.api.nvim_create_user_command('GitlabLinkDefault', function()
+  get_gitlab_link(true)
+end, {})
 
 -- wrap comments, add new comment lines automatically
 -- https://neovim.io/doc/user/change.html#fo-table
 vim.opt.formatoptions:append 'cro'
-
---[[ vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.tsx', '*.ts' },
-  callback = function()
-    local pos = vim.api.nvim_win_get_cursor(0)
-    vim.api.nvim_command '%! prettier -w --parser typescript'
-    vim.api.nvim_win_set_cursor(0, pos)
-  end,
-})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.jsx', '*.js' },
-  callback = function()
-    local pos = vim.api.nvim_win_get_cursor(0)
-    vim.api.nvim_command '%! prettier -w --parser javascript'
-    vim.api.nvim_win_set_cursor(0, pos)
-  end,
-}) ]]
-
--- vim.lsp.set_log_level 'info'
-
--- vim.api.nvim_command 'nnoremap <leader>q q'
--- vim.api.nvim_command 'nnoremap q <Nop>'
-
--- vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
---   pattern = { 'Dockerfile*' },
---   callback = function()
---     vim.api.nvim_set_option_value('filetype', 'dockerfile', {})
---   end,
--- })
 
 vim.cmd.highlight { 'link', '@diff.plus.diff', 'DiffAdd' }
 vim.cmd.highlight { 'link', '@diff.minus.diff', 'DiffDelete' }
