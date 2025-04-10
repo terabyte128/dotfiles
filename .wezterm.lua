@@ -15,6 +15,12 @@ else
 	color_scheme = "Solarized Light (Gogh)"
 end
 
+local file = io.open(os.getenv("HOME") .. "/.wezterm_theme", "w")
+if file then
+	file:write(color_scheme)
+	file:close()
+end
+
 local config = {
 	color_scheme = color_scheme,
 	font = wezterm.font_with_fallback({
@@ -49,7 +55,7 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 -- the first matched regex group is captured in $1.
 table.insert(config.hyperlink_rules, {
 	regex = [[(OZ|EX)-(\d+)]],
-	format = 'https://jira.i.extrahop.com/browse/$1-$2',
+	format = "https://jira.i.extrahop.com/browse/$1-$2",
 })
 
 return config
