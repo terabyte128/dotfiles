@@ -13,8 +13,27 @@
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+
+    -- For blink.cmp's completion
+    -- source
+    -- dependencies = {
+    --     "saghen/blink.cmp"
+    -- },
+    config = function()
+      vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+        pattern = { '*.md' },
+        callback = function()
+          vim.cmd 'Markview splitOpen'
+        end,
+      })
+    end,
+  },
+  {
     'f-person/auto-dark-mode.nvim',
     opts = {
+      fallback = 'light',
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
