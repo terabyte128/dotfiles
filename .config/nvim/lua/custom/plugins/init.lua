@@ -14,9 +14,9 @@
 local function setup_colorscheme(use_dark_mode)
   local colorscheme
   if use_dark_mode then
-    colorscheme = "dark"
+    colorscheme = 'dark'
   else
-    colorscheme = "light"
+    colorscheme = 'light'
   end
 
   require('NeoSolarized').setup {
@@ -30,7 +30,7 @@ local function setup_colorscheme(use_dark_mode)
       string = { italic = false },
     },
   }
-  vim.cmd [[ colorscheme NeoSolarized ]]
+  vim.cmd 'colorscheme NeoSolarized'
 end
 
 return {
@@ -55,18 +55,30 @@ return {
   },
   {
     'f-person/auto-dark-mode.nvim',
-    opts = {
-      fallback = 'light',
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-      set_dark_mode = function()
-        setup_colorscheme(true)
-      end,
-      set_light_mode = function()
-        setup_colorscheme(false)
+    priority = 1000,
+    lazy = false,
+    config = function()
+      -- the auto-dark-mode plugin takes a bit of time to run the dark or light
+      -- mode function for the first time. so just quickly read it ourselves
+      -- for the initial setup to avoid annoying flashes
+      local handle = io.popen 'defaults read -g AppleInterfaceStyle 2>&1'
+      if handle == nil then
+        return false
       end
-    },
+
+      local rsp = handle:read '*a'
+      setup_colorscheme(rsp:find 'Dark' ~= nil)
+
+      require('auto-dark-mode').setup {
+        fallback = 'light',
+        set_dark_mode = function()
+          setup_colorscheme(true)
+        end,
+        set_light_mode = function()
+          setup_colorscheme(false)
+        end,
+      }
+    end,
   },
   {
     'robitx/gp.nvim',
@@ -193,9 +205,9 @@ return {
     'cappyzawa/trim.nvim',
     opts = {
       ft_blocklist = { 'diff' },
-    }
+    },
   },
-  { 'towolf/vim-helm',       ft = 'helm' },
+  { 'towolf/vim-helm', ft = 'helm' },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -242,7 +254,7 @@ return {
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -325,23 +337,8 @@ return {
     end,
   },
   {
+    -- this will be loaded by the auto-dark-mode plugin
     'Tsuzat/NeoSolarized.nvim',
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require('NeoSolarized').setup {
-        style = 'light',
-        transparent = false,
-        styles = {
-          comments = { italic = true },
-          keywords = { italic = false },
-          functions = { bold = true },
-          variables = {},
-          string = { italic = false },
-        },
-      }
-      vim.cmd [[ colorscheme NeoSolarized ]]
-    end,
   },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
