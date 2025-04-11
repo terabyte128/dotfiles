@@ -167,7 +167,12 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup {
-  { import = 'custom.plugins' },
+  spec = {
+    import = 'custom.plugins',
+  },
+  change_detection = {
+    notify = false,
+  },
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
