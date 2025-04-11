@@ -44,14 +44,7 @@ return {
     -- dependencies = {
     --     "saghen/blink.cmp"
     -- },
-    config = function()
-      vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-        pattern = { '*.md' },
-        callback = function()
-          vim.cmd 'Markview splitOpen'
-        end,
-      })
-    end,
+    opts = {},
   },
   {
     'f-person/auto-dark-mode.nvim',
