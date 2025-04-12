@@ -85,7 +85,7 @@ return {
             disable = false,
           },
           googleai = {
-            disable = true,
+            disable = false,
           },
         },
         agents = {
