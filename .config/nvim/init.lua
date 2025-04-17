@@ -255,3 +255,42 @@ end, { desc = 'Show [d]iagnostics for current line' })
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+
+vim.lsp.set_log_level 'debug'
+
+function Notify(cmd, args)
+  local client = vim.lsp.get_clients({ name = 'yamlls' })[1]
+
+  if client then
+    client.notify(cmd, args)
+  end
+end
+
+function TryRegister(cmd, args)
+  local lsp = require 'lspconfig'
+  local client = vim.lsp.get_clients({ name = 'yamlls' })[1]
+
+  if client then
+    local params = {
+      uri = 'file:///path/to/your/schema.json',
+      schema = {
+        type = 'object',
+        properties = {
+          -- Your schema definition here
+          name = { type = 'string' },
+          age = { type = 'integer' },
+        },
+      },
+    }
+
+    client.request(cmd, args, function(err, result, ctx)
+      if err then
+        vim.notify('Error registering custom schema: ' .. vim.inspect(err), vim.log.levels.ERROR)
+      else
+        vim.notify('Custom schema registered successfully: ' .. vim.inspect(result), vim.log.levels.INFO)
+      end
+    end)
+  else
+    vim.notify('yamlls LSP client not found.', vim.log.levels.WARN)
+  end
+end
