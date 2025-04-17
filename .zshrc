@@ -510,3 +510,4 @@ listening() {
 }
 
 export EMAIL="terabyte128@gmail.com"
+export HOMEBREW_NO_AUTO_UPDATE=true
