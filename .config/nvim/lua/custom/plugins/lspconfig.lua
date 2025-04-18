@@ -121,38 +121,7 @@ return {
         helm_ls = {},
         jsonls = {},
         taplo = {},
-        yamlls = {
-          settings = {
-            yaml = {
-              schemas = {
-                Kubernetes = '/*.yaml',
-              },
-            },
-          },
-          handlers = {
-            ['custom/schema/request'] = function(err, result, ctx)
-              local path = result[1]
-
-              if path:find '.gitlab-ci' then
-                return { 'https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json', nil }
-              elseif path:find 'k8s' then
-                return { 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.32.1-standalone-strict/all.json', nil }
-              else
-                return { nil, nil }
-              end
-            end,
-            ['yaml/schema/store/initialized'] = function(err, result, ctx)
-              -- TODO: wait until store is initialized before allowing picker to be shown
-            end,
-          },
-          on_init = function(client)
-            -- we support requesting custom schemas via the handler defined above
-            client.notify('yaml/registerCustomSchemaRequest', 'immaterial')
-            -- we also support selecting schemas from a list, so please send
-            -- 'yaml/schema/store/initialized' when finished initializing schemas
-            client.notify('yaml/supportSchemaSelection', 'immaterial')
-          end,
-        },
+        yamlls = {},
         terraformls = {
           root_dir = require('lspconfig.util').root_pattern '.terraform*',
           init_options = { immaterial = 'immaterial' },
