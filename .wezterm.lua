@@ -58,4 +58,6 @@ table.insert(config.hyperlink_rules, {
 	format = "https://jira.i.extrahop.com/browse/$1-$2",
 })
 
+config.audible_bell = "Disabled"
+
 return config
