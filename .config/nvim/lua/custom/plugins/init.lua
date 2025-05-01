@@ -36,54 +36,61 @@ end
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    version = false, -- Never set this value to "*"! Never!
-    opts = {
-      -- add any opts here
-      -- for example
-      provider = 'gemini',
+    'GeorgesAlkhouri/nvim-aider',
+    cmd = 'Aider',
+    -- Example key mappings for common actions:
+    keys = {
+      { '<leader>a/', '<cmd>Aider toggle<cr>', desc = 'Toggle Aider' },
+      { '<leader>as', '<cmd>Aider send<cr>', desc = 'Send to Aider', mode = { 'n', 'v' } },
+      { '<leader>ac', '<cmd>Aider command<cr>', desc = 'Aider Commands' },
+      { '<leader>ab', '<cmd>Aider buffer<cr>', desc = 'Send Buffer' },
+      { '<leader>a+', '<cmd>Aider add<cr>', desc = 'Add File' },
+      { '<leader>a-', '<cmd>Aider drop<cr>', desc = 'Drop File' },
+      { '<leader>ar', '<cmd>Aider add readonly<cr>', desc = 'Add Read-Only' },
+      { '<leader>aR', '<cmd>Aider reset<cr>', desc = 'Reset Session' },
+      -- Example nvim-tree.lua integration if needed
+      { '<leader>a+', '<cmd>AiderTreeAddFile<cr>', desc = 'Add File from Tree to Aider', ft = 'NvimTree' },
+      { '<leader>a-', '<cmd>AiderTreeDropFile<cr>', desc = 'Drop File from Tree from Aider', ft = 'NvimTree' },
     },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = 'make',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      --- The below dependencies are optional,
-      'echasnovski/mini.pick', -- for file_selector provider mini.pick
-      'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
-      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
-      'ibhagwan/fzf-lua', -- for file_selector provider fzf
-      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
-      {
-        -- support for image pasting
-        'HakonHarnes/img-clip.nvim',
-        event = 'VeryLazy',
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { 'markdown', 'Avante' },
-        },
-        ft = { 'markdown', 'Avante' },
-      },
+      'folke/snacks.nvim',
+      --- The below dependencies are optional
+      'catppuccin/nvim',
+      'nvim-tree/nvim-tree.lua',
+      --- Neo-tree integration
+      'nvim-neo-tree/neo-tree.nvim',
     },
+    config = function(opts)
+      require('nvim_aider').setup(opts)
+    end,
+  },
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
+      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    lazy = false, -- neo-tree will lazily load itself
+    ---@module "neo-tree"
+    ---@type neotree.Config?
+    opts = {
+      -- fill any relevant options here
+    },
+    config = function(opts)
+      require('neo-tree').setup(opts)
+      require('nvim_aider.neo_tree').setup(opts)
+    end,
+  },
+  {
+    -- Make sure to set this up properly if you have lazy=true
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {
+      file_types = { 'markdown', 'Avante' },
+    },
+    ft = { 'markdown', 'Avante' },
   },
   {
     'f-person/auto-dark-mode.nvim',
@@ -112,48 +119,6 @@ return {
       }
     end,
   },
-  -- {
-  --   'robitx/gp.nvim',
-  --   config = function()
-  --     local conf = {
-  --       providers = {
-  --         openai = {
-  --           disable = true,
-  --         },
-  --         copilot = {
-  --           disable = false,
-  --         },
-  --         googleai = {
-  --           disable = false,
-  --         },
-  --       },
-  --       agents = {
-  --         {
-  --           provider = 'googleai',
-  --           name = 'ChatGemini',
-  --           chat = true,
-  --           command = false,
-  --           -- string with model name or table with model name and parameters
-  --           model = { model = 'gemini-2.0-flash', temperature = 1.1, top_p = 1 },
-  --           -- system prompt (use this to specify the persona/role of the AI)
-  --           system_prompt = require('gp.defaults').chat_system_prompt,
-  --         },
-  --         {
-  --           provider = 'googleai',
-  --           name = 'CodeGemini',
-  --           chat = false,
-  --           command = true,
-  --           -- string with model name or table with model name and parameters
-  --           model = { model = 'gemini-2.0-flash', temperature = 0.8, top_p = 1 },
-  --           system_prompt = require('gp.defaults').code_system_prompt,
-  --         },
-  --       },
-  --     }
-  --     require('gp').setup(conf)
-  --
-  --     -- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
-  --   end,
-  -- },
   {
     'mbbill/undotree',
     keys = { -- load the plugin only when using it's keybinding:
