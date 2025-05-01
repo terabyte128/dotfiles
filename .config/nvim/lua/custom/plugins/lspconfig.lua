@@ -105,7 +105,9 @@ return {
         shfmt = {},
         bashls = {},
         eslint = {},
-        clangd = {},
+        clangd = {
+          cmd = { 'clangd', '--fallback-style=webkit' },
+        },
         gopls = {},
         ['docker-compose-language-service'] = {},
         ['golangci-lint'] = {},
