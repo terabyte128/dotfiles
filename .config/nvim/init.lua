@@ -257,3 +257,33 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 vim.lsp.set_log_level 'error'
+
+local timer = vim.uv.new_timer()
+
+if timer ~= nil then
+  timer:start(
+    1000,
+    1000,
+    vim.schedule_wrap(function()
+      require('custom.colorscheme').setup_colorscheme()
+    end)
+  )
+end
+
+-- every second, update the colorscheme
+-- the first update is performed by the setup function for the neosolarized
+-- theme, since Lazy makes that high-priority. We can't manually run it before
+-- requiring Lazy (since it might not be installed yet)
+local timer = vim.uv.new_timer()
+
+if timer ~= nil then
+  timer:start(
+    1000,
+    1000,
+    vim.schedule_wrap(function()
+      require('custom.colorscheme').setup_colorscheme()
+    end)
+  )
+end
+
+require('custom.hover').setup {}
