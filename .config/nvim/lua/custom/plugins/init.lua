@@ -154,7 +154,7 @@ return {
       -- vim.keymap.set({ 'n', 'x', 'o' }, '<leader>gs', '<Plug>(leap-from-window)')
     end,
   },
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
@@ -253,10 +253,17 @@ return {
       local conform = require 'conform'
       local opts = {
         notify_on_error = true,
-        format_on_save = {
-          timeout_ms = 5000,
-          lsp_fallback = true,
-        },
+        format_on_save = function(bufnr)
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          if bufname:match 'sensor' then
+            return
+          end
+
+          return {
+            timeout_ms = 5000,
+            lsp_fallback = true,
+          }
+        end,
         formatters_by_ft = {
           lua = { 'stylua' },
           python = function(_)
