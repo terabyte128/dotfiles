@@ -10,29 +10,6 @@
 --
 -- NOTE: Here is where you install your plugins.
 
----@param use_dark_mode boolean
-local function setup_colorscheme(use_dark_mode)
-  local colorscheme
-  if use_dark_mode then
-    colorscheme = 'dark'
-  else
-    colorscheme = 'light'
-  end
-
-  require('NeoSolarized').setup {
-    style = colorscheme,
-    transparent = false,
-    styles = {
-      comments = { italic = true },
-      keywords = { italic = false },
-      functions = { bold = true },
-      variables = {},
-      string = { italic = false },
-    },
-  }
-  vim.cmd 'colorscheme NeoSolarized'
-end
-
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
@@ -61,33 +38,6 @@ return {
       file_types = { 'markdown', 'Avante' },
     },
     ft = { 'markdown', 'Avante' },
-  },
-  {
-    'f-person/auto-dark-mode.nvim',
-    priority = 1000,
-    lazy = false,
-    config = function()
-      -- the auto-dark-mode plugin takes a bit of time to run the dark or light
-      -- mode function for the first time. so just quickly read it ourselves
-      -- for the initial setup to avoid annoying flashes
-      local handle = io.popen 'defaults read -g AppleInterfaceStyle 2>&1'
-      if handle == nil then
-        return false
-      end
-
-      local rsp = handle:read '*a'
-      setup_colorscheme(rsp:find 'Dark' ~= nil)
-
-      require('auto-dark-mode').setup {
-        fallback = 'light',
-        set_dark_mode = function()
-          setup_colorscheme(true)
-        end,
-        set_light_mode = function()
-          setup_colorscheme(false)
-        end,
-      }
-    end,
   },
   {
     'mbbill/undotree',
@@ -320,8 +270,11 @@ return {
     end,
   },
   {
-    -- this will be loaded by the auto-dark-mode plugin
     'Tsuzat/NeoSolarized.nvim',
+    priority = 1000,
+    config = function()
+      require('custom.colorscheme').setup_colorscheme()
+    end,
   },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
