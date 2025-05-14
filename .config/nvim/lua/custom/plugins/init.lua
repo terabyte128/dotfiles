@@ -12,6 +12,16 @@
 
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+
+  -- {
+  --   name = 'clangd-lua-docs',
+  --   dir = '~/Code/neovim-plugins/clangd-lua-docs/',
+  --   config = true,
+  -- },
+  {
+    'terabyte128/clangd-lua-docs',
+    config = true,
+  },
   {
     'nmac427/guess-indent.nvim',
     opts = {},
@@ -51,15 +61,6 @@ return {
     keys = { -- load the plugin only when using it's keybinding:
       { '<leader>u', '<cmd>UndotreeToggle<cr>' },
     },
-  },
-  {
-    'akinsho/flutter-tools.nvim',
-    lazy = false,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'stevearc/dressing.nvim', -- optional for vim.ui.select
-    },
-    config = true,
   },
   {
     'karb94/neoscroll.nvim',
@@ -111,7 +112,7 @@ return {
       -- vim.keymap.set({ 'n', 'x', 'o' }, '<leader>gs', '<Plug>(leap-from-window)')
     end,
   },
-  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
@@ -214,7 +215,7 @@ return {
         format_on_save = function(bufnr)
           local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
           local bufname = vim.api.nvim_buf_get_name(bufnr)
-          if git_cmd.stdout:match 'sensor' and not bufname:match '.lua' then
+          if (git_cmd.stdout:match 'sensor' and not bufname:match '.lua') or bufname:match 'slide' then
             return {
               formatters = { 'sensor_formatter' },
             }

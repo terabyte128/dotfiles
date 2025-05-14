@@ -285,5 +285,3 @@ if timer ~= nil then
     end)
   )
 end
-
-require('custom.hover').setup {}
