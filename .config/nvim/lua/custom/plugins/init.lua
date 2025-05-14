@@ -13,6 +13,10 @@
 return {
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
+    'nmac427/guess-indent.nvim',
+    opts = {},
+  },
+  {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
     dependencies = {
@@ -26,6 +30,9 @@ return {
     ---@type neotree.Config?
     opts = {
       -- fill any relevant options here
+    },
+    keys = {
+      { '<leader>tt', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
     },
     config = function(opts)
       require('neo-tree').setup(opts)
@@ -61,15 +68,15 @@ return {
   {
     'tpope/vim-fugitive',
   },
-  {
-    'nvim-tree/nvim-tree.lua',
-    config = function()
-      local tree = require 'nvim-tree'
-      tree.setup()
-
-      vim.keymap.set('n', '<leader>tt', '<cmd>NvimTreeOpen<CR>')
-    end,
-  },
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   config = function()
+  --     local tree = require 'nvim-tree'
+  --     tree.setup()
+  --
+  --     vim.keymap.set('n', '<leader>tt', '<cmd>NvimTreeOpen<CR>')
+  --   end,
+  -- },
   {
     'folke/trouble.nvim',
     opts = {}, -- for default options, refer to the configuration section for custom setup.
@@ -201,12 +208,16 @@ return {
     'stevearc/conform.nvim',
     config = function()
       local conform = require 'conform'
+
       local opts = {
         notify_on_error = true,
         format_on_save = function(bufnr)
+          local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
           local bufname = vim.api.nvim_buf_get_name(bufnr)
-          if bufname:match 'sensor' then
-            return
+          if git_cmd.stdout:match 'sensor' and not bufname:match '.lua' then
+            return {
+              formatters = { 'sensor_formatter' },
+            }
           end
 
           return {
@@ -249,6 +260,10 @@ return {
           },
           black = {
             prepend_args = { '--line-length', '80' },
+          },
+          sensor_formatter = {
+            command = vim.fn.expand '$HOME/src/sensor/build/tools/format_code.sh',
+            args = { '-f', '$FILENAME' },
           },
         },
       }

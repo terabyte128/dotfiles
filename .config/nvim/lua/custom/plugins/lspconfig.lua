@@ -107,11 +107,6 @@ return {
         eslint = {},
         clangd = {
           cmd = { 'clangd', '--fallback-style=webkit' },
-          handlers = {
-            ['textDocument/rename'] = function()
-              vim.notify '???'
-            end,
-          },
         },
         gopls = {},
         ['docker-compose-language-service'] = {},

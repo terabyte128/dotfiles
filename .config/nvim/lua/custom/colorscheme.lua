@@ -18,19 +18,25 @@ function M.setup_colorscheme()
     colorscheme = 'light'
   end
 
-  require('NeoSolarized').setup {
-    style = colorscheme,
-    transparent = false,
-    styles = {
-      comments = { italic = true },
-      keywords = { italic = false },
-      functions = { bold = true },
-      variables = {},
-      string = { italic = false },
-    },
-  }
-  vim.cmd 'colorscheme NeoSolarized'
-  vim.cmd('set background=' .. colorscheme)
+  last_colorscheme = vim.g.LastColorscheme
+
+  if last_colorscheme ~= colorscheme then
+    require('NeoSolarized').setup {
+      style = colorscheme,
+      transparent = false,
+      styles = {
+        comments = { italic = true },
+        keywords = { italic = false },
+        functions = { bold = true },
+        variables = {},
+        string = { italic = false },
+      },
+    }
+    vim.cmd 'colorscheme NeoSolarized'
+    vim.cmd('set background=' .. colorscheme)
+  end
+
+  vim.g.LastColorscheme = colorscheme
 end
 
 return M
