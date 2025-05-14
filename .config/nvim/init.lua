@@ -256,7 +256,7 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-vim.lsp.set_log_level 'error'
+vim.lsp.set_log_level(vim.lsp.log_levels.INFO)
 
 local timer = vim.uv.new_timer()
 
