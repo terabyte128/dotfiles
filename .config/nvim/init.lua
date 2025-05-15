@@ -285,3 +285,43 @@ if timer ~= nil then
     end)
   )
 end
+
+-- Function to replace checkboxes in a given range
+local function replace_checkboxes_in_range()
+  -- Get the current visual selection range
+  local startline = vim.fn.getpos('v')[2]
+  local endline = vim.fn.getpos('.')[2]
+
+  if startline > endline then
+    startline, endline = endline, startline
+  end
+
+  local pat = '%[[%s]?%]'
+
+  -- Iterate over the lines in the visual selection
+  for line_num = startline, endline do
+    -- Get the current line
+    local line = vim.fn.getline(line_num)
+    local modified_line
+
+    if line:match(pat) then
+      modified_line = line:gsub(pat, '[x]')
+    else
+      modified_line = line:gsub('%[x%]', '[ ]')
+    end
+
+    -- Update the line in the buffer
+    vim.fn.setline(line_num, modified_line)
+  end
+end
+
+-- Command to call the function
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'fill in checkboxes',
+  pattern = { 'markdown' },
+  callback = function()
+    vim.keymap.set('v', 'gC', function()
+      replace_checkboxes_in_range()
+    end, { desc = 'Fill in checkboxes' })
+  end,
+})
