@@ -1,6 +1,7 @@
 return {
   {
     'GeorgesAlkhouri/nvim-aider',
+    enabled = false,
     cmd = 'Aider',
     -- Example key mappings for common actions:
     keys = {
@@ -31,6 +32,7 @@ return {
   },
   {
     'yetone/avante.nvim',
+    enabled = false,
     event = 'VeryLazy',
     version = false, -- Never set this value to "*"! Never!
     opts = {
