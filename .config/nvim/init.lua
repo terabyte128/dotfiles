@@ -184,7 +184,10 @@ vim.opt.expandtab = true -- replace tabs with spaces
 vim.opt.shiftwidth = shiftwidth -- spaces for each autoindent step
 vim.opt.tabstop = shiftwidth -- number of spaces that tab will insert
 vim.opt.colorcolumn = '80' -- make a column at 80
-vim.opt.autochdir = true -- use local directory of file
+
+if not vim.env.NOAUTOCHDIR then
+  vim.opt.autochdir = true -- use local directory of file
+end
 
 local function run_cmd(cmd)
   local handle = io.popen(cmd)
@@ -256,7 +259,7 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-vim.lsp.set_log_level(vim.lsp.log_levels.INFO)
+vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
 
 local timer = vim.uv.new_timer()
 

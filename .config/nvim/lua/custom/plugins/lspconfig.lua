@@ -124,10 +124,7 @@ return {
         jsonls = {},
         taplo = {},
         yamlls = {},
-        terraformls = {
-          root_dir = require('lspconfig.util').root_pattern '.terraform*',
-          init_options = { immaterial = 'immaterial' },
-        },
+        terraformls = {},
         tflint = {},
         lua_ls = {
           -- cmd = {...},
