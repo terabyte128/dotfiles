@@ -51,18 +51,10 @@ local config = {
 -- Use the defaults as a base
 config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
--- make task numbers clickable
--- the first matched regex group is captured in $1.
-
-local jira = os.getenv("JIRA")
-local pattern = os.getenv("JIRA_TICKET_PATTERN")
-
-if jira and pattern then
-	table.insert(config.hyperlink_rules, {
-		regex = pattern,
-		format = jira .. "/browse/$1-$2",
-	})
-end
+pcall(function()
+	local work = require("work")
+	work.add_work_rules(config)
+end)
 
 config.audible_bell = "Disabled"
 
