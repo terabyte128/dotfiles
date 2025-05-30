@@ -15,7 +15,7 @@
 	rebase = true
 
 [core]
-	excludesfile = /Users/samwolfson/.gitignore
+	excludesfile = ~/.gitignore
 
 [include]
 	path = .config/gitconfig-local
