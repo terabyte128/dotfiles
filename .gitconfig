@@ -1,0 +1,21 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Sam Wolfson
+	email = terabyte128@gmail.com
+
+[alias]
+	rev = "!f(){ BRANCH=\"$(git rev-parse --abbrev-ref HEAD)\"; git push -u origin \"$BRANCH\":user/$USER/\"$BRANCH\" --force; }; f"
+	exec = "!exec "
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[core]
+	excludesfile = /Users/samwolfson/.gitignore
+
+[include]
+	path = .config/gitconfig-local
