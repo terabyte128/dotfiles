@@ -69,6 +69,12 @@ return {
   {
     'tpope/vim-fugitive',
   },
+  {
+    'shumphrey/fugitive-gitlab.vim',
+  },
+  {
+    'tpope/vim-rhubarb',
+  },
   -- {
   --   'nvim-tree/nvim-tree.lua',
   --   config = function()
