@@ -39,14 +39,14 @@ return {
     ---@module "neo-tree"
     ---@type neotree.Config?
     opts = {
+      filesystem = {
+        bind_to_cwd = false,
+      },
       -- fill any relevant options here
     },
     keys = {
       { '<leader>tt', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
     },
-    config = function(opts)
-      require('neo-tree').setup(opts)
-    end,
   },
   {
     -- Make sure to set this up properly if you have lazy=true
@@ -260,8 +260,12 @@ return {
           json = { 'prettier' },
           yaml = { 'prettier' },
           sh = { 'shfmt' },
+          jsonnet = { 'jsonnetfmt' },
         },
         formatters = {
+          jsonnetfmt = {
+            command = 'jsonnetfmt',
+          },
           shfmt = {
             prepend_args = { '-i', '4', '-ci', '-bn' },
           },

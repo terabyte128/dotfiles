@@ -122,6 +122,7 @@ return {
         ts_ls = {},
         helm_ls = {},
         jsonls = {},
+        jsonnet_ls = {},
         taplo = {},
         yamlls = {},
         terraformls = {},
