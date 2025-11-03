@@ -271,6 +271,7 @@ return {
           yaml = { 'prettier' },
           sh = { 'shfmt' },
           jsonnet = { 'jsonnetfmt' },
+          pkl = { 'pkl-format' },
         },
         formatters = {
           jsonnetfmt = {
@@ -285,6 +286,11 @@ return {
           sensor_formatter = {
             command = vim.fn.expand '$HOME/src/sensor/build/tools/format_code.sh',
             args = { '-f', '$FILENAME' },
+          },
+          ['pkl-format'] = {
+            stdin = false,
+            command = 'pkl',
+            args = { 'format', 'apply', '$FILENAME' },
           },
         },
       }

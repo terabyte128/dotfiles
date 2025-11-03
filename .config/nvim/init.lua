@@ -328,3 +328,10 @@ vim.api.nvim_create_autocmd('FileType', {
     end, { desc = 'Fill in checkboxes' })
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = { '*.pkl' },
+  callback = function()
+    vim.bo.filetype = 'pkl'
+  end,
+})
