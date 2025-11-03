@@ -69,6 +69,9 @@ defaults write NSGlobalDomain KeyRepeat -int 0
 # echo "Keyboard - Disable press-and-hold for keys in favor of key repeat."
 # defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
+# repeat keys in VSCode
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+
 # echo "Trackpad - Map bottom right corner to right-click."
 # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
 # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true

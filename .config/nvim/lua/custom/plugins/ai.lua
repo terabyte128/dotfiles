@@ -1,5 +1,14 @@
 return {
   {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    opts = {
+      suggestion = {
+        auto_trigger = true,
+      },
+    },
+  },
+  {
     'GeorgesAlkhouri/nvim-aider',
     enabled = false,
     cmd = 'Aider',

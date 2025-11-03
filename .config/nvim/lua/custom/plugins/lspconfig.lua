@@ -123,6 +123,7 @@ return {
         helm_ls = {},
         jsonls = {},
         jsonnet_ls = {},
+        prismals = {},
         taplo = {},
         yamlls = {},
         terraformls = {},

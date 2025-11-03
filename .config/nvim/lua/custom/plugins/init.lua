@@ -19,6 +19,16 @@ return {
   --   config = true,
   -- },
   {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
+  {
     'terabyte128/clangd-lua-docs',
     config = true,
   },
@@ -252,11 +262,11 @@ return {
           end,
           html = { 'prettier' },
           css = { 'prettier' },
-          typescript = { 'prettier' },
-          javascript = { 'prettier' },
-          typescriptreact = { 'prettier' },
-          javascriptreact = { 'prettier' },
-          markdown = { 'prettier_markdown' },
+          typescript = { 'prettier', 'eslint_d' },
+          javascript = { 'prettier', 'eslint_d' },
+          typescriptreact = { 'prettier', 'eslint_d' },
+          javascriptreact = { 'prettier', 'eslint_d' },
+          markdown = { 'prettier' },
           json = { 'prettier' },
           yaml = { 'prettier' },
           sh = { 'shfmt' },
@@ -282,15 +292,15 @@ return {
       require('conform').setup(opts)
 
       -- https://github.com/stevearc/conform.nvim/issues/339
-      local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
-      require('conform.util').add_formatter_args(markdown_formatter, {
-        '--prose-wrap',
-        'always',
-        '--print-width',
-        '80',
-      }, { append = false })
-      ---@cast markdown_formatter conform.FormatterConfigOverride
-      require('conform').formatters.prettier_markdown = markdown_formatter
+      -- local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
+      -- require('conform.util').add_formatter_args(markdown_formatter, {
+      --   '--prose-wrap',
+      --   'always',
+      --   '--print-width',
+      --   '80',
+      -- }, { append = false })
+      -- ---@cast markdown_formatter conform.FormatterConfigOverride
+      -- require('conform').formatters.prettier_markdown = markdown_formatter
 
       conform.setup(opts)
     end,
