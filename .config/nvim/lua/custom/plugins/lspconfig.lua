@@ -218,6 +218,7 @@ return {
         ruff = {},
         tailwindcss = {},
         ['html-lsp'] = {},
+        eslint_d = {},
       }
 
       -- Ensure the servers and tools above are installed
