@@ -266,7 +266,7 @@ return {
           javascript = { 'prettier', 'eslint_d' },
           typescriptreact = { 'prettier', 'eslint_d' },
           javascriptreact = { 'prettier', 'eslint_d' },
-          markdown = { 'prettier' },
+          markdown = { 'prettier_markdown' },
           json = { 'prettier' },
           yaml = { 'prettier' },
           sh = { 'shfmt' },
@@ -298,15 +298,15 @@ return {
       require('conform').setup(opts)
 
       -- https://github.com/stevearc/conform.nvim/issues/339
-      -- local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
-      -- require('conform.util').add_formatter_args(markdown_formatter, {
-      --   '--prose-wrap',
-      --   'always',
-      --   '--print-width',
-      --   '80',
-      -- }, { append = false })
-      -- ---@cast markdown_formatter conform.FormatterConfigOverride
-      -- require('conform').formatters.prettier_markdown = markdown_formatter
+      local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
+      require('conform.util').add_formatter_args(markdown_formatter, {
+        '--prose-wrap',
+        'always',
+        '--print-width',
+        '80',
+      }, { append = false })
+      ---@cast markdown_formatter conform.FormatterConfigOverride
+      require('conform').formatters.prettier_markdown = markdown_formatter
 
       conform.setup(opts)
     end,
@@ -347,26 +347,16 @@ return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = function()
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown_inline', 'vim', 'vimdoc' },
-        ignore_install = { 'markdown' },
-        -- Autoinstall languages that are not installed
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      }
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    end,
+    lazy = false,
+    opts = {
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown_inline', 'vim', 'vimdoc' },
+      ignore_install = { 'markdown' },
+      -- Autoinstall languages that are not installed
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+      folds = { enable = true },
+    },
   },
   {
     'windwp/nvim-ts-autotag',

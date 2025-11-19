@@ -1,50 +1,9 @@
 return {
   {
-    'apple/pkl-neovim',
-    lazy = true,
-    ft = 'pkl',
+    'mason-org/mason-lspconfig.nvim',
     dependencies = {
-      {
-        'nvim-treesitter/nvim-treesitter',
-        build = function(_)
-          vim.cmd 'TSUpdate'
-        end,
-      },
-      'L3MON4D3/LuaSnip',
-    },
-    build = function()
-      require('pkl-neovim').init()
-
-      -- Set up syntax highlighting.
-      vim.cmd 'TSInstall pkl'
-    end,
-    config = function()
-      -- Set up snippets.
-      require('luasnip.loaders.from_snipmate').lazy_load()
-
-      -- Configure pkl-lsp
-      vim.g.pkl_neovim = {
-        start_command = { 'pkl-lsp' },
-        pkl_cli_path = '~/.local/bin/pkl',
-      }
-    end,
-  },
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for neovim
-      'williamboman/mason.nvim',
-      -- register mason-installed packages with lspconfig
-      'williamboman/mason-lspconfig.nvim',
-      -- tiny plugin that just ensures all the mason-managed LSPs are installed
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      -- corner status window for nicer updates
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'kevinhwang91/nvim-ufo', opts = {}, dependencies = {
-        'kevinhwang91/promise-async',
-      } },
+      { 'mason-org/mason.nvim', opts = {} },
+      { 'neovim/nvim-lspconfig' },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -132,15 +91,13 @@ return {
       }
 
       local mason_servers = {
-        shfmt = {},
         bashls = {},
         eslint = {},
-        clangd = {
-          cmd = { 'clangd', '--fallback-style=webkit' },
-        },
+        clangd = {},
         gopls = {},
-        ['docker-compose-language-service'] = {},
-        ['golangci-lint'] = {},
+        docker_compose_language_service = {},
+        docker_language_server = {},
+        golangci_lint_ls = {},
         pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -185,70 +142,31 @@ return {
           },
         },
         marksman = {},
-        -- pylsp = {
-        --   settings = {
-        --     pylsp = {
-        --       plugins = {
-        --         rope_autoimport = {
-        --           enabled = true,
-        --         },
-        --         autopep8 = {
-        --           enabled = false,
-        --         },
-        --         flake8 = {
-        --           enabled = true,
-        --           maxLineLength = 80,
-        --         },
-        --         yapf = {
-        --           enabled = false,
-        --         },
-        --         pyflakes = {
-        --           enabled = false,
-        --         },
-        --         mccabe = {
-        --           enabled = false,
-        --         },
-        --         pycodestyle = {
-        --           enabled = false,
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
         ruff = {},
-        tailwindcss = {},
-        ['html-lsp'] = {},
-        eslint_d = {},
+        tailwindcss = {
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = { [[clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)]] },
+              },
+            },
+          },
+        },
+        html = {},
       }
 
-      -- Ensure the servers and tools above are installed
-      --  To check the current status of installed tools and/or manually install
-      --  other tools, you can run
-      --    :Mason
-      --
-      --  You can press `g?` for help in this menu
-      require('mason').setup()
-
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(mason_servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      for server_name, config in pairs(mason_servers) do
+        vim.lsp.config(server_name, config)
+      end
+
+      require('mason').setup()
       require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = mason_servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            vim.lsp.config(server_name, server)
-            vim.lsp.enable(server_name)
-          end,
-        },
+        ensure_installed = ensure_installed,
       }
     end,
   },
