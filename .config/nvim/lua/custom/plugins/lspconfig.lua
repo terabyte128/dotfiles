@@ -146,8 +146,11 @@ return {
         tailwindcss = {
           settings = {
             tailwindCSS = {
+              lint = {
+                cssConflict = 'ignore',
+              },
               experimental = {
-                classRegex = { [[clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)]] },
+                classRegex = { 'clsx\\(([^)]*)\\)', "(?:'|\"|`)([^']*)(?:'|\"|`)" },
               },
             },
           },
