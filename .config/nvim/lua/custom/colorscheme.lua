@@ -5,14 +5,19 @@ function M.setup_colorscheme()
   -- mode function for the first time. so just quickly read it ourselves
   -- for the initial setup to avoid annoying flashes
   local handle = io.popen 'defaults read -g AppleInterfaceStyle 2>&1'
+  local rsp = 'light'
+
   if handle == nil then
-    return false
+    rsp = os.getenv 'COLORSCHEME' or rsp
+  else
+    rsp = handle:read '*a'
+    if rsp:lower():find 'not found' then
+      rsp = os.getenv 'COLORSCHEME' or rsp
+    end
   end
 
-  local rsp = handle:read '*a'
-
   local colorscheme
-  if rsp:find 'Dark' ~= nil then
+  if rsp:lower():find 'dark' ~= nil then
     colorscheme = 'dark'
   else
     colorscheme = 'light'

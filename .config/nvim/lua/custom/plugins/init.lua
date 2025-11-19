@@ -271,6 +271,7 @@ return {
           yaml = { 'prettier' },
           sh = { 'shfmt' },
           jsonnet = { 'jsonnetfmt' },
+          go = { 'golangci-lint' },
           pkl = { 'pkl-format' },
         },
         formatters = {
