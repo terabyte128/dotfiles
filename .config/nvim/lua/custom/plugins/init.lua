@@ -18,6 +18,7 @@ return {
   --   dir = '~/Code/neovim-plugins/clangd-lua-docs/',
   --   config = true,
   -- },
+  { 'google/vim-jsonnet' },
   {
     'stevearc/oil.nvim',
     ---@module 'oil'
@@ -27,6 +28,9 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if you prefer nvim-web-devicons
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
+    keys = {
+      { '<leader>tt', '<cmd>Oil<cr>', desc = 'NeoTree' },
+    },
   },
   {
     'terabyte128/clangd-lua-docs',
@@ -36,28 +40,28 @@ return {
     'nmac427/guess-indent.nvim',
     opts = {},
   },
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-    },
-    lazy = false, -- neo-tree will lazily load itself
-    ---@module "neo-tree"
-    ---@type neotree.Config?
-    opts = {
-      filesystem = {
-        bind_to_cwd = false,
-      },
-      -- fill any relevant options here
-    },
-    keys = {
-      { '<leader>tt', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
-    },
-  },
+  -- {
+  --   'nvim-neo-tree/neo-tree.nvim',
+  --   branch = 'v3.x',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+  --     'MunifTanjim/nui.nvim',
+  --     -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+  --   },
+  --   lazy = false, -- neo-tree will lazily load itself
+  --   ---@module "neo-tree"
+  --   ---@type neotree.Config?
+  --   opts = {
+  --     filesystem = {
+  --       bind_to_cwd = false,
+  --     },
+  --     -- fill any relevant options here
+  --   },
+  --   keys = {
+  --     { '<leader>tt', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
+  --   },
+  -- },
   {
     -- Make sure to set this up properly if you have lazy=true
     'MeanderingProgrammer/render-markdown.nvim',
