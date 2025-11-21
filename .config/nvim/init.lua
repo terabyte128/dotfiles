@@ -148,6 +148,8 @@ vim.api.nvim_create_autocmd('FileType', {
 
 require 'config.lazy'
 
+require('appearance').watch()
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
@@ -236,34 +238,6 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
-
-local timer = vim.uv.new_timer()
-
-if timer ~= nil then
-  timer:start(
-    1000,
-    1000,
-    vim.schedule_wrap(function()
-      require('custom.colorscheme').setup_colorscheme()
-    end)
-  )
-end
-
--- every second, update the colorscheme
--- the first update is performed by the setup function for the neosolarized
--- theme, since Lazy makes that high-priority. We can't manually run it before
--- requiring Lazy (since it might not be installed yet)
-local timer = vim.uv.new_timer()
-
-if timer ~= nil then
-  timer:start(
-    1000,
-    1000,
-    vim.schedule_wrap(function()
-      require('custom.colorscheme').setup_colorscheme()
-    end)
-  )
-end
 
 -- Function to replace checkboxes in a given range
 local function replace_checkboxes_in_range()

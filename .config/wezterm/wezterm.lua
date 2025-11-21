@@ -8,16 +8,20 @@ local get_appearance = function()
 end
 
 local color_scheme
+local mode
 
 if get_appearance():find("Dark") then
 	color_scheme = "Solarized Dark (Gogh)"
+	mode = "dark"
 else
 	color_scheme = "Solarized Light (Gogh)"
+	mode = "light"
 end
 
-local file = io.open(os.getenv("HOME") .. "/.wezterm_theme", "w")
+local file = io.open(os.getenv("HOME") .. "/.config/appearance", "w")
+
 if file then
-	file:write(color_scheme)
+	file:write(mode)
 	file:close()
 end
 
