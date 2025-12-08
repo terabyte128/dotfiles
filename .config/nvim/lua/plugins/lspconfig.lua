@@ -83,10 +83,8 @@ return {
         bashls = {},
         eslint = {},
         clangd = {},
-        gopls = {},
         docker_compose_language_service = {},
         docker_language_server = {},
-        golangci_lint_ls = {},
         pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -98,7 +96,6 @@ return {
         ts_ls = {},
         helm_ls = {},
         jsonls = {},
-        jsonnet_ls = {},
         prismals = {},
         taplo = {},
         yamlls = {},
@@ -146,6 +143,15 @@ return {
         },
         html = {},
       }
+
+      -- add language servers that depend on Go only if the go exectuable exists
+      if vim.fn.executable 'go' == 1 then
+        mason_servers = vim.tbl_extend('error', mason_servers, {
+          jsonnet_ls = {},
+          golangci_lint_ls = {},
+          gopls = {},
+        })
+      end
 
       local ensure_installed = vim.tbl_keys(mason_servers or {})
       vim.list_extend(ensure_installed, {
