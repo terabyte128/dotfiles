@@ -270,7 +270,7 @@ return {
           javascript = { 'prettier', 'eslint_d' },
           typescriptreact = { 'prettier', 'eslint_d' },
           javascriptreact = { 'prettier', 'eslint_d' },
-          markdown = { 'prettier_markdown' },
+          markdown = { 'prettier' },
           json = { 'prettier' },
           yaml = { 'prettier' },
           sh = { 'shfmt' },
@@ -302,16 +302,16 @@ return {
 
       require('conform').setup(opts)
 
-      -- https://github.com/stevearc/conform.nvim/issues/339
-      local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
-      require('conform.util').add_formatter_args(markdown_formatter, {
-        '--prose-wrap',
-        'always',
-        '--print-width',
-        '80',
-      }, { append = false })
-      ---@cast markdown_formatter conform.FormatterConfigOverride
-      require('conform').formatters.prettier_markdown = markdown_formatter
+      -- -- https://github.com/stevearc/conform.nvim/issues/339
+      -- local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
+      -- require('conform.util').add_formatter_args(markdown_formatter, {
+      --   '--prose-wrap',
+      --   'always',
+      --   '--print-width',
+      --   '80',
+      -- }, { append = false })
+      -- ---@cast markdown_formatter conform.FormatterConfigOverride
+      -- require('conform').formatters.prettier_markdown = markdown_formatter
 
       conform.setup(opts)
     end,
