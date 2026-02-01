@@ -121,7 +121,7 @@ return {
     opts = {},
   },
   {
-    'ggandor/leap.nvim',
+    'https://codeberg.org/andyg/leap.nvim',
     config = function()
       vim.keymap.set({ 'n', 'x', 'o' }, '<leader>f', '<Plug>(leap-forward)', {
         desc = 'Leap forward',
@@ -230,6 +230,31 @@ return {
     config = function()
       local conform = require 'conform'
 
+      --- Return a function that returns a different value depending on whether
+      --- or not we're in the oz repository.
+      ---@param if_true any value to return if in oz
+      ---@param if_false any value to return if not in oz
+      ---@return function a function that will return if_true or if_false
+      local function is_oz(if_true, if_false)
+        return function()
+          local oz = false
+          local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
+
+          if git_cmd.stdout ~= nil then
+            local basename = git_cmd.stdout:match '([^/]+)\n$'
+            if basename == 'oz' then
+              oz = true
+            end
+          end
+
+          if oz then
+            return if_true
+          else
+            return if_false
+          end
+        end
+      end
+
       local opts = {
         notify_on_error = true,
         format_on_save = function(bufnr)
@@ -248,29 +273,15 @@ return {
         end,
         formatters_by_ft = {
           lua = { 'stylua' },
-          python = function(_)
-            local oz = false
-            local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
-
-            if git_cmd.stdout ~= nil then
-              local basename = git_cmd.stdout:match '([^/]+)\n$'
-              if basename == 'oz' then
-                oz = true
-              end
-            end
-            if oz then
-              return { 'isort', 'black' }
-            else
-              return { 'ruff_fix', 'ruff_format' }
-            end
-          end,
+          python = is_oz({ 'isort', 'black' }, { 'ruff_fix', 'ruff_format' }),
           html = { 'prettier' },
           css = { 'prettier' },
           typescript = { 'prettier', 'eslint_d' },
           javascript = { 'prettier', 'eslint_d' },
           typescriptreact = { 'prettier', 'eslint_d' },
           javascriptreact = { 'prettier', 'eslint_d' },
-          markdown = { 'prettier' },
+          -- prettier_markdown is a customized formatter that enables prose-wrap
+          markdown = is_oz({ 'prettier' }, { 'prettier_markdown' }),
           json = { 'prettier' },
           yaml = { 'prettier' },
           sh = { 'shfmt' },
@@ -303,15 +314,15 @@ return {
       require('conform').setup(opts)
 
       -- -- https://github.com/stevearc/conform.nvim/issues/339
-      -- local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
-      -- require('conform.util').add_formatter_args(markdown_formatter, {
-      --   '--prose-wrap',
-      --   'always',
-      --   '--print-width',
-      --   '80',
-      -- }, { append = false })
-      -- ---@cast markdown_formatter conform.FormatterConfigOverride
-      -- require('conform').formatters.prettier_markdown = markdown_formatter
+      local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
+      require('conform.util').add_formatter_args(markdown_formatter, {
+        '--prose-wrap',
+        'always',
+        '--print-width',
+        '80',
+      }, { append = false })
+      ---@cast markdown_formatter conform.FormatterConfigOverride
+      require('conform').formatters.prettier_markdown = markdown_formatter
 
       conform.setup(opts)
     end,

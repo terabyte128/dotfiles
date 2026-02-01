@@ -449,4 +449,4 @@ alias darkmode='echo dark > ~/.config/appearance'
 alias lightmode='echo light > ~/.config/appearance'
 
 # opencode
-export PATH=/home/samwolfson/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
