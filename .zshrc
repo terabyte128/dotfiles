@@ -447,3 +447,6 @@ export HOMEBREW_NO_AUTO_UPDATE=true
 
 alias darkmode='echo dark > ~/.config/appearance'
 alias lightmode='echo light > ~/.config/appearance'
+
+# opencode
+export PATH=/home/samwolfson/.opencode/bin:$PATH
