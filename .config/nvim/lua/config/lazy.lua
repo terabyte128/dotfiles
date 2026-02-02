@@ -27,6 +27,9 @@ require('lazy').setup {
     -- import your plugins
     { import = 'plugins' },
   },
+  change_detection = {
+    enabled = false,
+  },
   -- automatically check for plugin updates
   checker = { enabled = false },
 }

@@ -1,8 +1,7 @@
 return {
   {
-    'mason-org/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
     dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
       { 'neovim/nvim-lspconfig' },
     },
     config = function()
@@ -84,7 +83,7 @@ return {
         eslint = {},
         clangd = {},
         docker_compose_language_service = {},
-        docker_language_server = {},
+        dockerls = {},
         pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -153,11 +152,6 @@ return {
         })
       end
 
-      local ensure_installed = vim.tbl_keys(mason_servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format lua code
-      })
-
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP Specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -173,14 +167,49 @@ return {
         capabilities = capabilities,
       })
 
-      for server_name, config in pairs(mason_servers) do
-        vim.lsp.config(server_name, config)
+      require('mason').setup()
+
+      -- mason's registry uses a different name for packages than nvim-lspconfig
+      -- so we need to fetch the name mapping to install them
+      local registry = require 'mason-registry'
+
+      local ensure_installed = vim.tbl_keys(mason_servers or {})
+
+      -- stylua is not an LSP but we'd like mason to install it anyways
+      vim.list_extend(ensure_installed, {
+        'stylua', -- Used to format lua code
+      })
+
+      -- create a map from lspconfig name --> mason name
+      local all_packages = registry.get_all_packages()
+      local lspconfig_name_map = {}
+
+      for _, pkg in pairs(all_packages) do
+        local lspconfig_name = pkg.spec and pkg.spec.neovim and pkg.spec.neovim.lspconfig
+
+        if lspconfig_name == nil then
+          lspconfig_name = pkg.name
+        end
+
+        lspconfig_name_map[lspconfig_name] = pkg.name
       end
 
-      require('mason').setup()
-      require('mason-lspconfig').setup {
-        ensure_installed = ensure_installed,
-      }
+      for _, pkg_name in pairs(ensure_installed) do
+        -- ask mason to install the package (using mason's name for it)
+        local mason_name = lspconfig_name_map[pkg_name]
+        local ok, pkg = pcall(registry.get_package, mason_name)
+        if ok then
+          if not pkg:is_installed() then
+            pkg:install()
+          end
+        end
+      end
+
+      -- finally, enable all our servers with their nvim-lspconfig configs
+      for server_name, config in pairs(mason_servers) do
+        vim.lsp.config(server_name, config)
+        vim.lsp.enable(server_name)
+      end
     end,
   },
 }
