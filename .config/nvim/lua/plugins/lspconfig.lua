@@ -176,6 +176,8 @@ return {
       local ensure_installed = vim.tbl_keys(mason_servers or {})
 
       -- stylua is not an LSP but we'd like mason to install it anyways
+      -- TODO: maybe we can install other formatters here instead of needing
+      -- to install tem manually (eg for use with conform)?
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
       })
