@@ -257,20 +257,10 @@ return {
 
       local opts = {
         notify_on_error = true,
-        format_on_save = function(bufnr)
-          local git_cmd = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          if (git_cmd.stdout:match 'sensor' and not bufname:match '.lua') or bufname:match 'slide' then
-            return {
-              formatters = { 'sensor_formatter' },
-            }
-          end
-
-          return {
-            timeout_ms = 5000,
-            lsp_fallback = true,
-          }
-        end,
+        format_on_save = {
+          timeout_ms = 5000,
+          lsp_format = 'never',
+        },
         formatters_by_ft = {
           lua = { 'stylua' },
           python = is_oz({ 'isort', 'black' }, { 'ruff_fix', 'ruff_format' }),
@@ -283,6 +273,7 @@ return {
           -- prettier_markdown is a customized formatter that enables prose-wrap
           markdown = is_oz({ 'prettier' }, { 'prettier_markdown' }),
           json = { 'prettier' },
+          jsonc = { 'prettier' },
           yaml = { 'prettier' },
           sh = { 'shfmt' },
           jsonnet = { 'jsonnetfmt' },
@@ -310,8 +301,6 @@ return {
           },
         },
       }
-
-      require('conform').setup(opts)
 
       -- -- https://github.com/stevearc/conform.nvim/issues/339
       local markdown_formatter = vim.deepcopy(require 'conform.formatters.prettier')
