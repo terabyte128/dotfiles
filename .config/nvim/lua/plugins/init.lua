@@ -29,7 +29,8 @@ return {
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
     keys = {
-      { '<leader>tt', '<cmd>Oil<cr>', desc = 'NeoTree' },
+      { '<leader>tt', '<cmd>Oil<cr>', desc = 'Tree' },
+      { '<leader>Tt', '<cmd>tabnew | Oil<cr>', desc = 'Tab + Tree' },
     },
   },
   {
