@@ -94,6 +94,7 @@ return {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         ts_ls = {},
         helm_ls = {},
+        html = {},
         jsonls = {},
         prismals = {},
         taplo = {},
@@ -140,7 +141,7 @@ return {
             },
           },
         },
-        html = {},
+        -- ty = {},
       }
 
       -- add language servers that depend on Go only if the go exectuable exists

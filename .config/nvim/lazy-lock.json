@@ -39,6 +39,7 @@
   "trim.nvim": { "branch": "master", "commit": "765360a6f6ac732f4c78c5c694f4b892a55b53ec" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "undotree": { "branch": "master", "commit": "fc28931fbfba66ab75d9af23fe46ffbbb9de6e8c" },
+  "vim-flog": { "branch": "master", "commit": "665b16ac8915f746bc43c9572b4581a5e9047216" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
   "vim-helm": { "branch": "master", "commit": "2c8525fd98e57472769d137317bca83e477858ce" },
   "vim-jsonnet": { "branch": "master", "commit": "4ebc6619ddce5d032a985b42a9864154c3d20e4a" },

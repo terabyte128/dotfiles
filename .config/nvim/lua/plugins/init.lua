@@ -82,6 +82,14 @@ return {
     opts = {},
   },
   {
+    'rbong/vim-flog',
+    lazy = true,
+    cmd = { 'Flog', 'Flogsplit', 'Floggit' },
+    dependencies = {
+      'tpope/vim-fugitive',
+    },
+  },
+  {
     'tpope/vim-fugitive',
   },
   {
@@ -260,7 +268,7 @@ return {
         notify_on_error = true,
         format_on_save = {
           timeout_ms = 5000,
-          lsp_format = 'never',
+          lsp_format = 'fallback',
         },
         formatters_by_ft = {
           lua = { 'stylua' },
