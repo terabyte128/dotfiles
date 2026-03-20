@@ -285,3 +285,29 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     vim.bo.filetype = 'pkl'
   end,
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Set JSON formatexpr',
+  pattern = { 'json' },
+  callback = function()
+    vim.bo.formatexpr = "v:lua.require'conform'.formatexpr()"
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'python',
+  callback = function(args)
+    vim.api.nvim_buf_create_user_command(args.buf, 'PythonTest', function()
+      local root = vim.fs.root(args.buf, function(name, _)
+        return name:match '%-ci.yml$' ~= nil
+      end)
+      if root == nil then
+        print 'no root'
+        return
+      end
+
+      vim.cmd 'write'
+      vim.cmd('!cd ' .. root .. ' && python -m unittest ' .. vim.api.nvim_buf_get_name(args.buf))
+    end, {})
+  end,
+})

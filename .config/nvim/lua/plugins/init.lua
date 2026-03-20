@@ -20,6 +20,37 @@ return {
   -- },
   { 'google/vim-jsonnet' },
   {
+    'rest-nvim/rest.nvim',
+    ft = 'http',
+    build = false,
+    config = function()
+      vim.g.rest_nvim = {
+        request = {
+          skip_ssl_verification = true,
+        },
+        response = {
+          hooks = {
+            format = true,
+          },
+        },
+      }
+    end,
+    dependencies = {
+      'j-hui/fidget.nvim',
+      'nvim-neotest/nvim-nio',
+      'nvim-treesitter/nvim-treesitter',
+      {
+        -- Lazy.nvim does not recognize this library's rocksfile, so add it
+        -- to package path manually.
+        'manoelcampos/xml2lua',
+        config = function(plugin)
+          package.path = package.path .. ';' .. plugin.dir .. '/?.lua'
+        end,
+      },
+      'lunarmodules/lua-mimetypes',
+    },
+  },
+  {
     'stevearc/oil.nvim',
     ---@module 'oil'
     ---@type oil.SetupOpts
@@ -272,7 +303,7 @@ return {
         },
         formatters_by_ft = {
           lua = { 'stylua' },
-          python = is_oz({ 'isort', 'black' }, { 'ruff_fix', 'ruff_format' }),
+          python = { 'ruff_fix', 'ruff_format' },
           html = { 'prettier' },
           css = { 'prettier' },
           typescript = { 'prettier', 'eslint_d' },
