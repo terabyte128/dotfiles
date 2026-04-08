@@ -82,6 +82,7 @@ return {
         bashls = {},
         eslint = {},
         clangd = {},
+        -- copilot = {},
         docker_compose_language_service = {},
         dockerls = {},
         basedpyright = {},

@@ -237,7 +237,7 @@ vim.o.foldenable = true
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
-vim.lsp.set_log_level(vim.lsp.log_levels.OFF)
+vim.lsp.set_log_level(vim.lsp.log_levels.WARN)
 
 -- Function to replace checkboxes in a given range
 local function replace_checkboxes_in_range()
@@ -318,3 +318,20 @@ vim.api.nvim_create_autocmd('FileType', {
     end, {})
   end,
 })
+
+vim.api.nvim_create_user_command('GitFixup', function(opts)
+  local staged = vim.system({ 'git', 'diff', '--name-only', '--cached' }):wait()
+
+  if staged.code ~= 0 or staged.stdout == nil then
+    vim.notify('git diff returned unexpected ' .. vim.inspect(staged), vim.log.levels.ERROR)
+    return
+  end
+
+  if vim.trim(staged.stdout) ~= '' then
+    vim.notify('files are already staged, aborting', vim.log.levels.ERROR)
+    return
+  end
+
+  vim.system({ 'git', 'add', vim.api.nvim_buf_get_name(0) }):wait()
+  vim.system({ 'git', 'commit', '--fixup', opts.fargs[1] }):wait()
+end, { nargs = 1 })

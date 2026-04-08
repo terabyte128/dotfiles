@@ -344,10 +344,6 @@ fi
 
 [[ -S ~/.1password/agent.sock ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export FIRST_NAME=Sam
 export LAST_NAME=Wolfson
 
@@ -450,3 +446,10 @@ alias lightmode='echo light > ~/.config/appearance'
 
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
+
+# fnm
+FNM_PATH="/home/samwolfson/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell zsh)"
+fi
